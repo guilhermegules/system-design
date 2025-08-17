@@ -1,22 +1,27 @@
 {
   "name": "inventory-service",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "dev": "nodemon",
+    "start": "ts-node --project ./tsconfig.json -r tsconfig-paths/register dist/server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Guilherme Gules Moreira",
   "license": "ISC",
-  "description": "",
+  "description": "Inventory service with CQRS patterns",
   "dependencies": {
     "amqplib": "^0.10.8",
+    "dotenv": "^17.2.1",
     "fastify": "^5.5.0"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.7",
-    "@types/node": "^24.2.1",
+    "@types/node": "^24.3.0",
+    "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.9.2"
   }
 }
