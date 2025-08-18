@@ -6,10 +6,8 @@
     "target": "es5",
     "baseUrl": "./src",
     "paths": {
-      "@commands/*": ["commands/*"],
       "@data/*": ["data/*"],
-      "@events/*": ["events/*"],
-      "@queries/*": ["queries/*"]
+      "@events/*": ["events/*"]
     },
     "moduleResolution": "node",
     "lib": ["esnext"],
