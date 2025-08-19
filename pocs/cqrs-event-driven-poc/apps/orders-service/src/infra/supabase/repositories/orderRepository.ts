@@ -25,8 +25,6 @@ export async function updateOrder(order: Partial<Order>) {
     .eq("product_id", order.productId)
     .single();
 
-  console.log(error);
-
   if (error) {
     throw error;
   }
