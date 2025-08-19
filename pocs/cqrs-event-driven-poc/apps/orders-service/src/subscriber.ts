@@ -1,20 +1,14 @@
-import { InventoryItem } from "@data/inventory";
+import { OrderEntity, OrderFromQueue } from "@data/order";
 import { connect, subscribe } from "@events/eventBus";
+import { getOrderById } from "@infra/supabase/repositories/orderRepository";
 
-const inventory: InventoryItem[] = [
-  { productId: "A1", stock: 50 },
-  { productId: "B2", stock: 30 },
-];
+async function handleOrderCreated(event: OrderFromQueue) {
+  const order: OrderEntity = await getOrderById(event.productId);
 
-async function handleOrderCreated(event: {
-  productId: string;
-  quantity: number;
-}) {
-  const item = inventory.find((i) => i.productId === event.productId);
-  if (item && item.stock > 0) {
-    item.stock -= event.quantity;
+  if (order && order.stock > 0) {
+    order.stock -= event.quantity;
     console.log(
-      `📦 Inventory updated: ${item.productId} now has ${item.stock} left`
+      `📦 Inventory updated: ${order.product_id} now has ${order.stock} left`
     );
   } else {
     console.log(

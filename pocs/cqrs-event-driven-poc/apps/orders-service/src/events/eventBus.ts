@@ -1,3 +1,4 @@
+import { OrderFromQueue } from "@data/order";
 import amqp, { Channel } from "amqplib";
 
 let channel: Channel;
@@ -10,7 +11,7 @@ export async function connect() {
 
 export async function subscribe(
   routingKey: string,
-  onMessage: (data: { productId: string; quantity: number }) => void
+  onMessage: (data: OrderFromQueue) => void
 ) {
   const { queue } = await channel.assertQueue("", { exclusive: true });
   channel.bindQueue(queue, "orders", routingKey);
