@@ -5,8 +5,8 @@
   "scripts": {
     "build": "tsc && tsc-alias",
     "dev": "nodemon",
-    "start:dev": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/server",
-    "start": "node -r tsconfig-paths/register dist/server"
+    "start:dev": "ts-node --project ./tsconfig.json -r tsconfig-paths/register -r dotenv/config src/server",
+    "start": "node -r tsconfig-paths/register -r dotenv/config dist/server"
   },
   "keywords": [],
   "author": "Guilherme Gules Moreira",

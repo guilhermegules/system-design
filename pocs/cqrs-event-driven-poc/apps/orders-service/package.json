@@ -5,8 +5,8 @@
   "scripts": {
     "build": "tsc && tsc-alias",
     "dev": "nodemon",
-    "start:dev": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/subscriber",
-    "start": "node dist/subscriber"
+    "start:dev": "ts-node --project ./tsconfig.json -r tsconfig-paths/register -r dotenv/config src/subscriber",
+    "start": "node -r tsconfig-paths/register -r dotenv/config dist/subscriber"
   },
   "keywords": [],
   "author": "Guilherme Gules Moreira",
@@ -15,6 +15,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",
     "amqplib": "^0.10.8",
+    "dotenv": "^17.2.1",
     "fastify": "^5.5.0"
   },
   "devDependencies": {

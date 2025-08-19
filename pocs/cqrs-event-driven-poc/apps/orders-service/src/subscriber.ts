@@ -1,14 +1,25 @@
 import { OrderEntity, OrderFromQueue } from "@data/order";
 import { connect, subscribe } from "@events/eventBus";
-import { getOrderById } from "@infra/supabase/repositories/orderRepository";
+import {
+  getOrderById,
+  updateOrder,
+} from "@infra/supabase/repositories/orderRepository";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 async function handleOrderCreated(event: OrderFromQueue) {
   const order: OrderEntity = await getOrderById(event.productId);
 
   if (order && order.stock > 0) {
-    order.stock -= event.quantity;
+    await updateOrder({
+      productId: order.product_id,
+      status: order.status,
+      stock: event.quantity,
+    });
+
     console.log(
-      `📦 Inventory updated: ${order.product_id} now has ${order.stock} left`
+      `📦 Inventory updated: ${order.product_id} now has ${event.quantity} left`
     );
   } else {
     console.log(

@@ -20,13 +20,13 @@ export async function createOrder(
 
   const orderDto: Order = {
     productId,
-    quantity,
+    quantity: order.quantity - quantity,
     status: order.status,
   };
 
-  const savedOrder = await saveOrder(orderDto);
+  await saveOrder(orderDto);
 
-  eventBus.publish("order.created", savedOrder);
+  eventBus.publish("order.created", orderDto);
 
-  return savedOrder;
+  return orderDto;
 }

@@ -3,7 +3,9 @@ import { createOrder } from "@commands/createOrder";
 import { getOrders } from "@queries/getOrders";
 import Fastify from "fastify";
 import { EventBus } from "@events/eventBus";
-import "dotenv/config";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const fastify = Fastify({ logger: true });
 
@@ -17,9 +19,13 @@ fastify.post("/orders", async (req, reply) => {
     productId: string;
     quantity: number;
   };
-  console.log(eventBus);
-  const order = createOrder({ productId, quantity }, eventBus);
-  return reply.code(201).send(order);
+
+  try {
+    const order = await createOrder({ productId, quantity }, eventBus);
+    return reply.code(202).send(order);
+  } catch (error) {
+    return reply.code(400).send(error);
+  }
 });
 
 fastify.get("/orders", async () => {

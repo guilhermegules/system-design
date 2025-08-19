@@ -23,7 +23,7 @@ export async function saveOrder(order: Order) {
       status: order.status,
     })
     .eq("product_id", order.productId)
-    .select();
+    .single();
 
   if (error) {
     throw error;
