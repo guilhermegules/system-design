@@ -9,7 +9,8 @@
       "@commands/*": ["commands/*"],
       "@data/*": ["data/*"],
       "@events/*": ["events/*"],
-      "@queries/*": ["queries/*"]
+      "@queries/*": ["queries/*"],
+      "@infra/*": ["infra/*"]
     },
     "moduleResolution": "node",
     "lib": ["esnext"],

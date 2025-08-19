@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "Inventory service with CQRS patterns",
   "dependencies": {
+    "@supabase/supabase-js": "^2.55.0",
     "amqplib": "^0.10.8",
     "dotenv": "^17.2.1",
     "fastify": "^5.5.0"

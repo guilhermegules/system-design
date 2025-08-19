@@ -1,25 +1,32 @@
-import { type Order, orders } from "@data/orders";
+import { Order } from "@data/orders";
 import { EventBus } from "@events/eventBus";
+import { saveOrder } from "@infra/supabase/repositories/orderRepository";
+import { getOrderProductId } from "@queries/getOrderByProductId";
 
 interface CreateOrderPayload {
   productId: string;
   quantity: number;
 }
 
-export function createOrder(
+export async function createOrder(
   { productId, quantity }: CreateOrderPayload,
   eventBus: EventBus
 ) {
-  const order: Order = {
-    id: orders.length + 1,
+  const order = await getOrderProductId(productId);
+
+  if (!order) {
+    throw new Error(`Product ${productId} not found.`);
+  }
+
+  const orderDto: Order = {
     productId,
     quantity,
-    status: "PENDING",
+    status: order.status,
   };
 
-  orders.push(order);
+  const savedOrder = await saveOrder(orderDto);
 
-  eventBus.publish("order.created", order);
+  eventBus.publish("order.created", savedOrder);
 
-  return order;
+  return savedOrder;
 }

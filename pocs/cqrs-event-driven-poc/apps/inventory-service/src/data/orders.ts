@@ -1,8 +1,15 @@
 export interface Order {
-  id: number;
   productId: string;
   quantity: number;
-  status: "PENDING";
+  status: OrderType;
 }
 
-export const orders: Order[] = [];
+export interface OrderEntity {
+  id: string;
+  product_id: string;
+  quantity: number;
+  status: OrderType;
+  updated_at: string;
+}
+
+export type OrderType = "PENDING";
