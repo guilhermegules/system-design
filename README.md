@@ -15,3 +15,9 @@ study about system design annotations
 [Online Banking Challenge](./online-banking-challenge.md)
 
 ![](./online-banking-security.png)
+
+## Instagram challenge
+
+[Instagram Challenge](./instagram-system-design-challenge.md)
+
+![](./instagram-challenge.png)
