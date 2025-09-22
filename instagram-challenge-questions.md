@@ -128,4 +128,66 @@ Referências:
 - Operações demoradas ou não críticas -> assíncrono.
 - Tolerância a latência e eventual consistência.
 
+### Como garantir exatamente-once delivery?
 
+- Idempotência no consumidor.
+- Controle de offset (Kafka).
+- Mensagens com IDs únicos para evitar duplicação.
+
+Referências:
+
+- https://docs.confluent.io/platform/current/streams/developer-guide/overview.html
+
+### Impacto da fila na latência?
+
+- Pode aumentar latência da operação final.
+- Design para operações rápidas na API e pós-processamento assíncrono.
+
+### Como lidar com duplicações e falhas?
+
+- Idempotência.
+- Dead letter queues.
+- Retries com backoff.
+
+## 5. Processos de upload
+
+### Como tratar uploads de mídia?
+
+- Upload direto do cliente para armazenamento (ex: AWS S3) para reduzir carga no backend.
+- Gerar thumbnails/processamento assíncrono.
+- Integrar com feeds atualizando metadados.
+
+### Arquitetura ideal para arquivos grandes
+
+- Armazenamento em blobs (S3, GCS).
+- CDN para distribuição.
+- Processamento em background.
+
+### Como garantir uploads resilientes?
+
+- Upload em partes (multipart).
+
+## 6. Escalabilidade horizontal
+
+### Como escalar feed-service e posts-service?
+
+- Tornar stateless para facilitar escalonamento.
+- Usar balanceadores de carga.
+- Partitionar dados e filas.
+
+### Técnicas de particionamento/sharding
+
+- Sharding por usuário, hash de post ID, etc.
+- Usar banco de dados que suporte sharding (MongoDB).
+
+### Manter baixa latência e alta disponibilidade?
+
+- Uso de cache.
+- Réplicas de banco.
+- Monitoramento e auto-scaling.
+
+### Como detectar hotspots?
+
+- Monitorar métricas de acesso.
+- Usar rate limiting.
+- Redistribuir carga via particionamento dinâmico.
