@@ -6,18 +6,18 @@ study about system design annotations
 
 ## Twitter
 
-[Twitter Challenge](./twitter/twitter-challenge.md)
+[Twitter Challenge](./design-scenarios/twitter/twitter-challenge.md)
 
-![](./twitter/twitter-challenge.png)
+![](./design-scenarios/twitter/twitter-challenge.png)
 
 ## Online banking security
 
-[Online Banking Challenge](./banking/online-banking-challenge.md)
+[Online Banking Challenge](./design-scenarios/banking/online-banking-challenge.md)
 
-![](./banking/online-banking-security.png)
+![](./design-scenarios/banking/online-banking-security.png)
 
 ## Instagram challenge
 
-[Instagram Challenge](./instagra/instagram-system-design-challenge.md)
+[Instagram Challenge](./design-scenarios/instagram/instagram-challenge-questions.md)
 
-![](./instagram/instagram-challenge.png)
+![](./design-scenarios/instagram/instagram-challenge.png)
