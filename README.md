@@ -21,3 +21,9 @@ study about system design annotations
 [Instagram Challenge](./design-scenarios/instagram/instagram-challenge-questions.md)
 
 ![](./design-scenarios/instagram/instagram-challenge.png)
+
+## Uber Challenge
+
+[Uber challenge](./design-scenarios/uber/microsservices-uber-challenge.md)
+
+![](./design-scenarios/uber/microsservices-uber-challenge.png)
