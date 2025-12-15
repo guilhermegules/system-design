@@ -1,0 +1,21 @@
+{
+  "name": "facade",
+  "version": "1.0.0",
+  "description": "Facade implementation",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc src/main.ts && node src/main.js"
+  },
+  "keywords": [
+    "TS",
+    "JS",
+    "Facade",
+    "Design",
+    "Pattern"
+  ],
+  "author": "Guilherme Gules Moreira",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.5.3"
+  }
+}

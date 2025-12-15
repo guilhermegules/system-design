@@ -1,0 +1,19 @@
+{
+  "name": "abstract-factory",
+  "version": "1.0.0",
+  "description": "Abstract factory pattern typescript implementation",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc ./src/index.ts && node ./src/index.js"
+  },
+  "keywords": [
+    "Typescript",
+    "Design",
+    "Patterns"
+  ],
+  "author": "Guilherme Gules Moreira",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.4.3"
+  }
+}

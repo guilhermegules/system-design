@@ -1,0 +1,20 @@
+{
+  "name": "builder",
+  "version": "1.0.0",
+  "description": "Builder pattern typescript implementation",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc ./src/index.ts && node ./src/index.js"
+  },
+  "keywords": [
+    "TypeScript",
+    "Design",
+    "Patterns",
+    "Builder"
+  ],
+  "author": "Guilherme Gules Moreira",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}

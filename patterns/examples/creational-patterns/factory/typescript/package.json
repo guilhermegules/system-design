@@ -1,0 +1,19 @@
+{
+  "name": "typescript-factory-implementation",
+  "version": "1.0.0",
+  "description": "Implementation of factory pattern with TS",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc ./src/index.ts && node ./src/index.js"
+  },
+  "keywords": [
+    "TypeScript",
+    "Design",
+    "Patterns"
+  ],
+  "author": "Guilherme Gules Moreira",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.4.3"
+  }
+}
