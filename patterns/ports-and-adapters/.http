@@ -1,0 +1,27 @@
+### Register a new user (SUCCESS)
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email": "john.doe@email.com"
+}
+
+###
+
+### Register same user again (ERROR - already exists)
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email": "john.doe@email.com"
+}
+
+###
+
+### Register user with invalid email (ERROR - validation)
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email": "invalid-email"
+}
