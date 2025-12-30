@@ -3,6 +3,7 @@ package command
 import (
 	"context"
 	"time"
+	"userservice/internal/application/events"
 	"userservice/internal/application/ports/outbound"
 	"userservice/internal/domain"
 
@@ -31,7 +32,11 @@ func (s *CreateUserService) Execute(ctx context.Context, name, email string) (st
 		return "", err
 	}
 
-	_ = s.publisher.Publish("user.created", user)
+	_ = s.publisher.Publish("user.created", domainToEvent(user))
 
 	return user.ID, nil
+}
+
+func domainToEvent(user domain.User) *events.UserCreated {
+	return &events.UserCreated{ID: user.ID, Name: user.Name, Email: user.Email}
 }

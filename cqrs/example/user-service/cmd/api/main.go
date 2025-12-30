@@ -19,6 +19,7 @@ import (
 	rabbitAdapter "userservice/internal/adapters/outbound/rabbitmq"
 	"userservice/internal/application/command"
 	"userservice/internal/application/config"
+	"userservice/internal/application/consumer"
 	"userservice/internal/application/query"
 )
 
@@ -112,6 +113,19 @@ func main() {
 		config.App.Port,
 		config.App.Env,
 	)
+
+	userCreatedConsumer := consumer.NewUserCreatedConsumer(
+		amqpChannel,
+		userReadRepo,
+	)
+
+	ctx, cancel := context.WithCancel(context.Background())
+
+	defer cancel()
+
+	if err := userCreatedConsumer.Start(ctx); err != nil {
+		log.Fatal("❌ Failed to start consumer:", err)
+	}
 
 	log.Fatal(
 		http.ListenAndServe(":"+config.App.Port, mux),
