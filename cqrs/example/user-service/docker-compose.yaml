@@ -1,10 +1,26 @@
 services:
+  api:
+    build: .
+    container_name: user-service-api
+    profiles: ["app"]
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - cqrs-network
+
   rabbitmq:
     image: rabbitmq:3.13-management-alpine
     container_name: rabbitmq
-    environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
+    profiles: ["infra"]
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -19,11 +35,11 @@ services:
   postgres:
     image: postgres:16-alpine
     container_name: postgres
+    profiles: ["infra"]
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: write_db
-      POSTGRES_INITDB_ARGS: "-c timezone=UTC"
     ports:
       - "5432:5432"
     volumes:
@@ -37,10 +53,9 @@ services:
       - cqrs-network
 
   mongodb:
-    image: mongo:7-jammy
+    image: mongo:7.0-jammy
     container_name: mongodb
-    environment:
-      MONGO_INITDB_DATABASE: read_db
+    profiles: ["infra"]
     ports:
       - "27017:27017"
     volumes:
@@ -52,23 +67,6 @@ services:
       retries: 5
     networks:
       - cqrs-network
-  api:
-    build: .
-    container_name: user-service-api
-    env_file:
-      - .env
-    ports:
-      - "${APP_PORT}:${APP_PORT}"
-    depends_on:
-      postgres:
-        condition: service_healthy
-      mongodb:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
-    networks:
-      - cqrs-network
-
 volumes:
   postgres_data:
     driver: local

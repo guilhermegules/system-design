@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 	"userservice/internal/application/events"
-	"userservice/internal/application/ports/outbound"
 	"userservice/internal/domain"
+	"userservice/internal/ports/outbound"
 
 	"github.com/google/uuid"
 )
@@ -26,6 +26,10 @@ func (s *CreateUserService) Execute(ctx context.Context, name, email string) (st
 		Email:     email,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
+	}
+
+	if !user.IsValidUser() {
+		return "", domain.ErrInvalidUser
 	}
 
 	if err := s.repository.Create(ctx, user); err != nil {

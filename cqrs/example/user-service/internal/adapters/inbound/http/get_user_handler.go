@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	netHTTP "net/http"
 	"strings"
-	"userservice/internal/application/ports/inbound"
+	"userservice/internal/ports/inbound"
 )
 
 type GetUserHandler struct {
