@@ -18,8 +18,8 @@ func NewUserReadRepository(db *mongo.Database) *UserReadRepository {
 	}
 }
 
-func (r *UserReadRepository) FindById(ctx context.Context, id string) (any, error) {
-	var user map[string]any
+func (r *UserReadRepository) FindById(ctx context.Context, id string) (UserDocument, error) {
+	var user UserDocument
 	err := r.collection.FindOne(ctx, bson.M{"_id": id}).Decode(&user)
 	return user, err
 }

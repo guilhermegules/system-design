@@ -1,7 +1,10 @@
 package inbound
 
-import "context"
+import (
+	"context"
+	"userservice/internal/application/dto"
+)
 
 type GetUserUseCase interface {
-	Execute(ctx context.Context, id string) (any, error)
+	Execute(ctx context.Context, id string) (*dto.UserDTO, error)
 }
