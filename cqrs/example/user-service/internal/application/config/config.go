@@ -3,13 +3,15 @@ package config
 import (
 	"fmt"
 	"os"
+	"strconv"
 )
 
 type Config struct {
 	App struct {
-		Name string
-		Env  string
-		Port string
+		Name     string
+		Env      string
+		Port     string
+		LogLevel int
 	}
 
 	Postgres struct {
@@ -41,6 +43,13 @@ func Load() *Config {
 	config.App.Name = getEnv("APP_NAME", "user-service")
 	config.App.Env = getEnv("APP_ENV", "dev")
 	config.App.Port = getEnv("APP_PORT", "8080")
+	logLevel, err := strconv.Atoi(getEnv("APP_LOG_LEVEL", "-4"))
+
+	if err != nil {
+		fmt.Println("error converting log level", err)
+	}
+
+	config.App.LogLevel = logLevel
 
 	config.Postgres.Host = getEnv("POSTGRES_HOST", "localhost")
 	config.Postgres.Port = getEnv("POSTGRES_PORT", "5432")

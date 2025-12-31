@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"testing"
+	"userservice/internal/adapters/outbound/observability"
 	"userservice/internal/domain"
 )
 
@@ -33,8 +34,9 @@ func TestCreateUserService_Execute_Success(t *testing.T) {
 
 	repo := &fakeUserWriteRepository{}
 	publisher := &fakeEventPublisher{}
+	logger := observability.NewLogger()
 
-	service := NewCreateUserService(repo, publisher)
+	service := NewCreateUserService(repo, publisher, logger)
 
 	id, err := service.Execute(ctx, "John Doe", "john@doe.com")
 	if err != nil {
@@ -67,8 +69,9 @@ func TestCreateUserService_Execute_InvalidUser(t *testing.T) {
 
 	repo := &fakeUserWriteRepository{}
 	publisher := &fakeEventPublisher{}
+	logger := observability.NewLogger()
 
-	service := NewCreateUserService(repo, publisher)
+	service := NewCreateUserService(repo, publisher, logger)
 
 	id, err := service.Execute(ctx, "", "")
 	if err == nil {
@@ -93,8 +96,9 @@ func TestCreateUserService_Execute_RepositoryError(t *testing.T) {
 		err: expectedErr,
 	}
 	publisher := &fakeEventPublisher{}
+	logger := observability.NewLogger()
 
-	service := NewCreateUserService(repo, publisher)
+	service := NewCreateUserService(repo, publisher, logger)
 
 	id, err := service.Execute(ctx, "John Doe", "john@doe.com")
 	if err == nil {

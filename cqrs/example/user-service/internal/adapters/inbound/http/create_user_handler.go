@@ -2,7 +2,8 @@ package http
 
 import (
 	"encoding/json"
-	netHTTP "net/http"
+	"errors"
+	"net/http"
 	"userservice/internal/application/dto"
 	"userservice/internal/domain"
 	"userservice/internal/ports/inbound"
@@ -16,7 +17,16 @@ func NewCreateUserHandler(useCase inbound.CreateUserUseCase) *CreateUserHandler 
 	return &CreateUserHandler{useCase}
 }
 
-func (h *CreateUserHandler) ServeHTTP(w netHTTP.ResponseWriter, r *netHTTP.Request) {
+// CreateUser godoc
+// @Summary Create user
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param request body dto.CreateUserRequest true "User data"
+// @Success 201 {object} dto.CreateUserResponse
+// @Failure 400 {object} dto.ErrorResponse
+// @Router /users [post]
+func (h *CreateUserHandler) Route(w http.ResponseWriter, r *http.Request) {
 	var req dto.CreateUserDTO
 
 	_ = json.NewDecoder(r.Body).Decode(&req)
@@ -24,12 +34,12 @@ func (h *CreateUserHandler) ServeHTTP(w netHTTP.ResponseWriter, r *netHTTP.Reque
 	id, err := h.useCase.Execute(r.Context(), req.Name, req.Email)
 
 	if err != nil {
-		if err == domain.ErrInvalidUser {
-			netHTTP.Error(w, err.Error(), netHTTP.StatusBadRequest)
+		if errors.Is(err, domain.ErrInvalidUser) {
+			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
 
-		netHTTP.Error(w, err.Error(), netHTTP.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 

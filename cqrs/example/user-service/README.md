@@ -121,12 +121,18 @@ make run
 make full
 ```
 
+### Generate swagger
+
+```sh
+docker run --rm   -v $(pwd):/code   ghcr.io/swaggo/swag:latest   init -g ./cmd/api/main.go -o cmd/api/docs
+```
+
 ## Testing api
 
 Create a user
 
 ```curl
-curl -X POST http://localhost:8080/users \
+curl -X POST http://localhost:8080/api/users \
   -H "Content-Type: application/json" \
   -d '{"name":"John","email":"john@email.com"}'
 ```
@@ -134,5 +140,5 @@ curl -X POST http://localhost:8080/users \
 Get a user by id
 
 ```curl
-curl http://localhost:8080/users/{id}
+curl http://localhost:8080/api/users/{id}
 ```

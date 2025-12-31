@@ -13,8 +13,10 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
+	_ "userservice/cmd/api/docs"
 	httpAdapter "userservice/internal/adapters/inbound/http"
 	mongoAdapter "userservice/internal/adapters/outbound/mongo"
+	"userservice/internal/adapters/outbound/observability"
 	pgAdapter "userservice/internal/adapters/outbound/postgres"
 	rabbitAdapter "userservice/internal/adapters/outbound/rabbitmq"
 	"userservice/internal/application/command"
@@ -23,6 +25,19 @@ import (
 	"userservice/internal/application/query"
 )
 
+// @title User Service API
+// @version 1.0
+// @description User management service
+// @termsOfService https://example.com/terms
+
+// @contact.name API Support
+// @contact.email support@example.com
+
+// @license.name MIT
+// @license.url https://opensource.org/licenses/MIT
+
+// @host localhost:8080
+// @BasePath /api
 func main() {
 	// -------------------------------------------------
 	// Load ENV
@@ -32,6 +47,8 @@ func main() {
 	}
 
 	config := config.Load()
+
+	logger := observability.NewLogger()
 
 	// -------------------------------------------------
 	// PostgreSQL (Write Side)
@@ -91,6 +108,7 @@ func main() {
 	createUserUseCase := command.NewCreateUserService(
 		userWriteRepo,
 		eventPublisher,
+		logger,
 	)
 	getUserUseCase := query.NewGetUserService(userReadRepo)
 
@@ -100,9 +118,11 @@ func main() {
 	createUserHandler := httpAdapter.NewCreateUserHandler(createUserUseCase)
 	getUseCaseHandler := httpAdapter.NewGetUserHandler(getUserUseCase)
 
-	mux := http.NewServeMux()
-	mux.Handle("/users", createUserHandler)
-	mux.Handle("/users/", getUseCaseHandler)
+	router := httpAdapter.NewRouter(httpAdapter.RouterDeps{
+		Env:               config.App.Env,
+		CreateUserHandler: createUserHandler,
+		GetUserHandler:    getUseCaseHandler,
+	})
 
 	// -------------------------------------------------
 	// HTTP Server
@@ -128,6 +148,6 @@ func main() {
 	}
 
 	log.Fatal(
-		http.ListenAndServe(":"+config.App.Port, mux),
+		http.ListenAndServe(":"+config.App.Port, router),
 	)
 }
