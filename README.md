@@ -28,6 +28,7 @@ Study about system design annotations and best practices.
 - [Proxies](./proxies/) - Proxy patterns and use cases
 - [Scalability](./scalability/) - Scaling systems and architectural considerations
 - [Feature Toggle](./feature-toggle/README.md) - Explaining types and usage
+- [BDD](./bdd/README.md) - Summary of BDD, functional tests and examples
 
 ### Design Scenarios & Challenges
 
