@@ -18,6 +18,8 @@ Study about system design annotations and best practices.
 - [Object Calisthenics](./object-calisthenics/README.md) - Code quality practices
 - [Ports and Adapters](./patterns/ports-and-adapters/README.md) - Hexagonal architecture pattern
 - [CQRS Pattern](./cqrs/README.md) - Command Query Responsibility Segregation with Go example
+- [Feature Toggle](./feature-toggle/README.md) - Explaining types and usage
+- [BDD](./bdd/README.md) - Summary of BDD, functional tests and examples
 
 ### System Design Topics
 
@@ -27,8 +29,6 @@ Study about system design annotations and best practices.
 - [CAP Theorem](./cap-theorem/) - Consistency, Availability, Partition tolerance tradeoffs
 - [Proxies](./proxies/) - Proxy patterns and use cases
 - [Scalability](./scalability/) - Scaling systems and architectural considerations
-- [Feature Toggle](./feature-toggle/README.md) - Explaining types and usage
-- [BDD](./bdd/README.md) - Summary of BDD, functional tests and examples
 
 ### Design Scenarios & Challenges
 
