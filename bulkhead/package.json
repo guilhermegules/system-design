@@ -1,0 +1,14 @@
+{
+  "name": "bulkhead",
+  "version": "1.0.0",
+  "description": "The name comes from ships.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "p-limit": "^7.3.0"
+  }
+}
