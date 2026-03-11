@@ -6,8 +6,11 @@ Study about system design annotations and best practices.
 
 ## Topics & Resources
 
+- [Why is system so important?](./why-is-system-design-so-important.md)
+
 ### Core Concepts
 
+- [IP Address](./ip-address.md)
 - [Foundational Concepts](./foundational-concepts.md) - Essential system design principles
 - [Data Persistence Modeling](./data-persistence-modeling.md) - Database design and data modeling
 
