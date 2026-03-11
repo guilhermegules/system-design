@@ -6,7 +6,7 @@ Study about system design annotations and best practices.
 
 ## Topics & Resources
 
-- [Why is system so important?](./why-is-system-design-so-important.md)
+- [Why is system design so important?](./why-is-system-design-so-important.md)
 
 ### Core Concepts
 
