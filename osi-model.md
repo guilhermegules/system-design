@@ -76,3 +76,40 @@ Example:
 ### Simplifies complex networking
 
 Networking is extremely complex. The OSI model makes it easier to study and understand by dividing it into smaller pieces
+
+## Layers
+
+### Application (Layer 7)
+
+- Interacts with user-facing software.
+- Provides protocols that applications use to communicate (e.g., web and email).
+
+### Presentation (Layer 6)
+
+- Formats data for transmission.
+- Handles translation, encryption/decryption, and compression.
+
+### Session (Layer 5)
+
+- Opens, manages, and closes communication sessions between devices.
+- Keeps the connection active during data transfer and adds checkpoints.
+
+### Transport (Layer 4)
+
+- Manages end-to-end communication between devices.
+- Splits data into segments and reassembles them at the destination.
+
+### Network (Layer 3)
+
+- Handles routing and data transfer between different networks.
+- Breaks segments into packets and finds the best path to the destination.
+
+### Data Link (Layer 2)
+
+- Transfers data between devices on the same network.
+- Converts packets into frames.
+
+### Physical (Layer 1)
+
+- Deals with the actual hardware (cables, switches, signals).
+- Converts data into bits (1s and 0s) for transmission.
