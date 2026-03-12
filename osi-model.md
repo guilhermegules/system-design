@@ -79,6 +79,8 @@ Networking is extremely complex. The OSI model makes it easier to study and unde
 
 ## Layers
 
+![](./images/osi-model-layers.png)
+
 ### Application (Layer 7)
 
 - Interacts with user-facing software.
