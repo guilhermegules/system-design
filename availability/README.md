@@ -59,3 +59,77 @@ For both servers to be down simultaneously, both must fail at the same time:
 **Availability = 100% - 0.0001% = 99.9999%**
 
 Two servers with 99.9% availability each give you nearly six nines when running in parallel.
+
+## Common Failure Modes
+
+To design for availability, you must understand how systems fail.  
+Failures don’t ask for permission and they rarely happen at convenient times.
+
+## Hardware Failures
+
+Everything physical eventually breaks. The question is **when**, not **if**.
+
+| Component        | Typical Failure Rate | MTBF              |
+|------------------|---------------------|-------------------|
+| Hard Drive (HDD) | 2–4% per year       | 300,000 hours     |
+| SSD              | 0.5–1% per year     | 1–2 million hours |
+| Server           | 2–4% per year       | 300,000 hours     |
+| Network Switch   | 1–2% per year       | 500,000 hours     |
+| Power Supply     | 1–3% per year       | 400,000 hours     |
+
+> **MTBF** = *Mean Time Between Failures*
+
+At scale, hardware failures are not exceptional—they are routine.  
+A data center with 10,000 servers will experience **hundreds of failures per year**.
+
+**If your system cannot handle a server failing at any moment, it is not highly available.**
+
+## Software Failures
+
+Hardware fails randomly.  
+Software fails **creatively**.
+
+Common failure patterns:
+
+- **Bugs** → Crashes or incorrect behavior  
+- **Memory leaks** → Gradual resource exhaustion  
+- **Deadlocks** → Processes waiting on each other indefinitely  
+- **Cascading failures** → One failure triggers others across systems  
+
+## Network Failures
+
+Network issues are often **subtle, intermittent, and hard to debug**.
+
+Typical problems:
+
+- **Packet loss** → Data never reaches its destination  
+- **Latency spikes** → Sudden delays in communication  
+- **Network partitions** → Groups of servers become isolated  
+- **DNS failures** → Name resolution stops working  
+
+## Human Errors
+
+An uncomfortable truth: **70–80% of outages are caused by human error**.
+
+Not hardware. Not software. People.
+
+Common examples:
+
+- **Configuration mistakes** - Wrong environment variable, typos in config  
+- **Failed deployments** - Bad code or broken migrations in production  
+- **Accidental deletions** - Running the wrong command in the wrong place  
+- **Capacity planning errors** - Underestimating traffic or load  
+
+---
+
+## Key Takeaway
+
+Humans make mistakes—that’s unavoidable.
+
+**Well-designed systems:**
+- Make mistakes **hard to introduce**
+- Make failures **safe**
+- Make recovery **fast and predictable**
+
+This is why **[automation](https://www.ibm.com/think/topics/automation) and [testing](https://www.ibm.com/think/topics/software-testing)** are essential for reliability.
+
