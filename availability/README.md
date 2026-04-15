@@ -133,3 +133,72 @@ Humans make mistakes—that’s unavoidable.
 
 This is why **[automation](https://www.ibm.com/think/topics/automation) and [testing](https://www.ibm.com/think/topics/software-testing)** are essential for reliability.
 
+## Redundancy
+
+If there is one concept that underpins all of availability, it is redundancy. The logic is simple: if you have only one of something, when it fails, you have zero. If you have two, when one fails, you still have one.
+
+Redundancy means having backup components that can take over when primary components fail.
+
+### Active-Passive (Standby)
+
+In an active-passive configuration, one component handles all the work while another waits idle as a backup. When the active component fails, the passive one takes over.
+
+TODO IMAGE
+
+Active-passive mode is commonly used in situations where you want a single source of truth and controlled writes like databases, stateful services, and systems requiring a single leader.
+
+Pros
+
+- Simple to reason about
+- Standby typically uses fewer resources
+- Clear source of truth
+
+Cons
+
+- Failover takkes time (detection + promotion + routing changes)
+- Standby may not be truly "production-ready" because it is not tested under real load
+- Potential for split-brain problem
+
+### Active-Active
+
+In an active-active configuration, all components handle traffic simultaneously. There is no distinction between primary and backup because every node is doing real work.
+
+TODO IMAGE
+
+When one node fails, the load balancer simply stops sending traffic to it. There is no failover process because the other nodes were already handling traffic. The remaining nodes absorb the additional load.
+
+Pros
+
+- No failover delay
+- All nodes tested under real load
+- Better resource utilization
+
+Cons
+
+- More complex
+- Must handle data consistency across nodes
+- Requires stateless design or shared state
+
+The key requiremente for active-active is that requests can be handle by any node.
+
+### Geographic Redundancy
+
+Redundancy within a single data center protects against hardware failures, but what if the entire data center goes offline? Power outages, network cuts, natural disasters, or even a backhoe cutting a fiber line can take down an entire facility.
+
+Geo redundancy distributes your system across multiple physical locations:
+
+TODO IMAGE
+
+**Availability Zones** are the sweet spot for most applications. They provide meaningful isolation (separate power, cooling, and network) while keeping latency low enough for synchronous replication. Most cloud-native applications deploy across at least two AZs.
+
+**Multi-region** deployment is necessary for global applications or those requiring disaster recovery from regional events. The challenge is data replication, since synchronous replication across regions adds significant latency. Most multi-region systems use asynchronous replication and accept some data loss in a disaster (typically seconds to minutes of transactions).
+
+### Redundancy Across Layers
+
+A chain is only as strong as its weakest link. If you have redundant app servers but a single database, the database is your single point of failure. True high availability requires redundancy at every layer of your stack.
+
+TODO IMAGE
+
+Notice that redundancy gets harder as you move down the stack. Adding more web servers is trivial. Adding database replicas with automatic failover requires careful engineering.
+
+> Note: Redundancy is not free. Every backup server, every replica, every additional availability zone costs money. The question is whether that cost is justified by the reduction in downtime risk.
