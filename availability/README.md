@@ -143,7 +143,7 @@ Redundancy means having backup components that can take over when primary compon
 
 In an active-passive configuration, one component handles all the work while another waits idle as a backup. When the active component fails, the passive one takes over.
 
-TODO IMAGE
+![](active-passive.png)
 
 Active-passive mode is commonly used in situations where you want a single source of truth and controlled writes like databases, stateful services, and systems requiring a single leader.
 
@@ -163,7 +163,7 @@ Cons
 
 In an active-active configuration, all components handle traffic simultaneously. There is no distinction between primary and backup because every node is doing real work.
 
-TODO IMAGE
+![](active-active.png)
 
 When one node fails, the load balancer simply stops sending traffic to it. There is no failover process because the other nodes were already handling traffic. The remaining nodes absorb the additional load.
 
@@ -187,7 +187,7 @@ Redundancy within a single data center protects against hardware failures, but w
 
 Geo redundancy distributes your system across multiple physical locations:
 
-TODO IMAGE
+![](geo-redundancy.png)
 
 **Availability Zones** are the sweet spot for most applications. They provide meaningful isolation (separate power, cooling, and network) while keeping latency low enough for synchronous replication. Most cloud-native applications deploy across at least two AZs.
 
@@ -197,7 +197,7 @@ TODO IMAGE
 
 A chain is only as strong as its weakest link. If you have redundant app servers but a single database, the database is your single point of failure. True high availability requires redundancy at every layer of your stack.
 
-TODO IMAGE
+![](redundancy-across-layers.png)
 
 Notice that redundancy gets harder as you move down the stack. Adding more web servers is trivial. Adding database replicas with automatic failover requires careful engineering.
 
