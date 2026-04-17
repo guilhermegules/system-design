@@ -1,0 +1,13 @@
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-list-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+}
