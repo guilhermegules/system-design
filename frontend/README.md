@@ -109,8 +109,36 @@ Best for: Applications with derived/calculated state
 - **Container**: Logic + state (render props)
 - **Presenter**: Pure UI components
 
+## Micro Frontends (MFE)
+
+Micro Frontends extend the microservices philosophy to the frontend, decomposing a monolithic frontend into smaller, independently developable and deployable applications.
+
+### Core Principles
+
+- **Independent Deployment**: Each micro frontend can be deployed without coordinating with other teams
+- **Technology Agnostic**: Different teams can use different frameworks (React, Vue, Angular)
+- **Domain Ownership**: Each team owns a specific business domain
+- **Isolation**: Styles and JavaScript are isolated to avoid conflicts
+
+### Architecture Patterns
+
+1. **Module Federation**: Webpack 5 feature allowing shared code at runtime
+2. **iframe**: Complete isolation but limited communication
+3. **Web Components**: Standards-based component sharing
+4. **Single-SPA**: Framework for coordinating multiple applications
+
+### Trade-offs
+
+| Benefits | Challenges |
+| -------- | ---------- |
+| Independent teams | Shared dependencies bloat |
+| Faster iteration | Inconsistent user experience |
+| Technology flexibility | Complex integration |
+| Selective deployment | Performance overhead |
+
 ## Resources
 
 - [React Documentation](https://react.dev)
 - [What is frontend architecture](https://ducin.dev/what-is-frontend-architecture)
 - [Redux](https://redux.js.org/introduction/getting-started)
+- [MFE Playground](https://github.com/guilhermegules/mfe-playground)
