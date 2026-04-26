@@ -32,6 +32,7 @@ Study about system design annotations and best practices.
 - [CAP Theorem](./cap-theorem/) - Consistency, Availability, Partition tolerance tradeoffs
 - [Proxies](./proxies/) - Proxy patterns and use cases
 - [Scalability](./scalability/) - Scaling systems and architectural considerations
+- [Reliability](./reliability/) - Building reliable and fault-tolerant systems
 
 ### Design Scenarios & Challenges
 
