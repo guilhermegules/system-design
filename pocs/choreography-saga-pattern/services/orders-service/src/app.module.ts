@@ -8,6 +8,7 @@ import { EventsModule } from './events/events.module';
 import { HealthController } from './health/health.controller';
 import { InboxModule } from './inbox/inbox.module';
 import { KafkaModule } from './kafka/kafka.module';
+import { MetricsModule } from './metrics/metrics.module';
 import { OrdersModule } from './orders/orders.module';
 import { OutboxModule } from './outbox/outbox.module';
 
@@ -34,6 +35,7 @@ import { OutboxModule } from './outbox/outbox.module';
     OrdersModule,
     OutboxModule,
     InboxModule,
+    MetricsModule,
   ],
   controllers: [HealthController],
 })

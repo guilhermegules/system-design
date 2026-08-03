@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { RedisService } from '../cache/redis.service';
 import { TOPICS } from '../events/event-topics';
+import { PrometheusService } from '../metrics/prometheus.service';
 import { OutboxService } from '../outbox/outbox.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Order } from './order.entity';
@@ -20,6 +21,7 @@ export class OrdersService {
     private readonly dataSource: DataSource,
     private readonly outbox: OutboxService,
     private readonly redis: RedisService,
+    private readonly prometheus: PrometheusService,
   ) {}
 
   async createOrder(dto: CreateOrderDto): Promise<Order> {
@@ -52,6 +54,7 @@ export class OrdersService {
     });
 
     this.logger.log(`order created: ${id} (${order.status})`);
+    this.prometheus.ordersCreated.inc();
     return order;
   }
 
@@ -91,7 +94,11 @@ export class OrdersService {
       .set({ status: 'COMPLETED' })
       .where('id = :id AND status = :status', { id, status: 'PENDING' })
       .execute();
-    return (result.affected ?? 0) > 0;
+    if ((result.affected ?? 0) > 0) {
+      this.prometheus.ordersCompleted.inc();
+      return true;
+    }
+    return false;
   }
 
   async cancelOrder(id: string): Promise<boolean> {
@@ -101,7 +108,11 @@ export class OrdersService {
       .set({ status: 'CANCELLED' })
       .where('id = :id AND status = :status', { id, status: 'PENDING' })
       .execute();
-    return (result.affected ?? 0) > 0;
+    if ((result.affected ?? 0) > 0) {
+      this.prometheus.ordersCancelled.inc();
+      return true;
+    }
+    return false;
   }
 
   async invalidateCache(orderId: string, customerId: string): Promise<void> {
