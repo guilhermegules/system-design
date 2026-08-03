@@ -8,6 +8,10 @@ coverage/
 # Java / Gradle
 .gradle/
 build/
+bin/
+.classpath
+.project
+.settings/
 !gradle/wrapper/gradle-wrapper.jar
 !**/gradlew
 !**/gradlew.bat
