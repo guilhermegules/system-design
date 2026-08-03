@@ -74,6 +74,8 @@ public class InventoryService {
         outbox.enqueue("inventory.reserved", orderId, Map.of(
                 "orderId", orderId.toString(),
                 "reservationId", firstReservationId.toString(),
+                "totalAmount", payload.totalAmount(),
+                "currency", payload.currency(),
                 "simulate", payload.simulate() == null ? "" : payload.simulate()));
         log.info("stock reserved for order {}", orderId);
     }

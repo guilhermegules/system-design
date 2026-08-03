@@ -141,6 +141,29 @@ services:
       timeout: 5s
       retries: 10
 
+  payment-service:
+    build:
+      context: ./services/payment-service
+    container_name: payment-service
+    environment:
+      SERVER_PORT: "8082"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/payment
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    ports:
+      - "8082:8082"
+    depends_on:
+      kafka:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/8082' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
   otel-collector:
     image: otel/opentelemetry-collector-contrib:0.119.0
     container_name: otel-collector

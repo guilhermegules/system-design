@@ -85,9 +85,14 @@ POST /orders
 {
   "orderId": "uuid",
   "reservationId": "uuid",
+  "totalAmount": 99.8,
+  "currency": "USD",
   "simulate": null
 }
 ```
+
+`totalAmount` and `currency` are propagated from `order.created` so the
+payment service can process the charge without an extra lookup.
 
 ### `inventory.reservation-failed` (inventory → orders)
 
