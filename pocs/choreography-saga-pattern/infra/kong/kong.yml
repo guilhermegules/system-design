@@ -1,0 +1,19 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: orders-service
+    url: http://orders-service:3000
+    routes:
+      - name: orders-routes
+        paths:
+          - /orders
+        strip_path: false
+    plugins:
+      - name: rate-limiting
+        config:
+          minute: 60
+          policy: local
+
+# The inventory and payment services are intentionally NOT exposed through
+# the gateway. They communicate exclusively over Kafka.

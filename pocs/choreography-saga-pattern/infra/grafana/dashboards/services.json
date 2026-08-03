@@ -1,0 +1,24 @@
+{
+  "uid": "services-overview",
+  "title": "Services Overview",
+  "tags": ["saga", "services"],
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "10s",
+  "time": { "from": "now-15m", "to": "now" },
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Service Up",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "up{job=~\"orders-service|inventory-service|payment-service\"}",
+          "legendFormat": "{{job}}"
+        }
+      ]
+    }
+  ]
+}
