@@ -89,6 +89,35 @@ services:
       timeout: 5s
       retries: 10
 
+  orders-service:
+    build:
+      context: ./services/orders-service
+    container_name: orders-service
+    environment:
+      PORT: "3000"
+      KAFKA_BROKERS: kafka:9092
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: orders
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+    ports:
+      - "3000:3000"
+    depends_on:
+      kafka:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://localhost:3000/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
   otel-collector:
     image: otel/opentelemetry-collector-contrib:0.119.0
     container_name: otel-collector
