@@ -3,14 +3,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScheduleModule } from '@nestjs/schedule';
 import configuration from './config/configuration';
-import { CacheModule } from './cache/cache.module';
-import { EventsModule } from './events/events.module';
-import { HealthController } from './health/health.controller';
-import { InboxModule } from './inbox/inbox.module';
-import { KafkaModule } from './kafka/kafka.module';
-import { MetricsModule } from './metrics/metrics.module';
-import { OrdersModule } from './orders/orders.module';
-import { OutboxModule } from './outbox/outbox.module';
+import { OrdersModule } from './application/orders.module';
+import { CacheModule } from './infrastructure/cache/cache.module';
+import { HttpModule } from './infrastructure/http/http.module';
+import { KafkaModule } from './infrastructure/messaging/kafka/kafka.module';
+import { MessagingModule } from './infrastructure/messaging/messaging.module';
+import { ObservabilityModule } from './infrastructure/observability/observability.module';
+import { PersistenceModule } from './infrastructure/persistence/persistence.module';
 
 @Module({
   imports: [
@@ -31,12 +30,11 @@ import { OutboxModule } from './outbox/outbox.module';
     ScheduleModule.forRoot(),
     KafkaModule,
     CacheModule,
-    EventsModule,
+    PersistenceModule,
+    ObservabilityModule,
     OrdersModule,
-    OutboxModule,
-    InboxModule,
-    MetricsModule,
+    MessagingModule,
+    HttpModule,
   ],
-  controllers: [HealthController],
 })
 export class AppModule {}
