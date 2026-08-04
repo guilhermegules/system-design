@@ -1,7 +1,7 @@
-import { TypeOrmUnitOfWork } from '@infrastructure/persistence/typeorm.unit-of-work';
+import { Order } from '@domain/order';
 import { OrderEntity } from '@infrastructure/persistence/order.entity';
 import { OutboxEntity } from '@infrastructure/persistence/outbox.entity';
-import { Order } from '@domain/order';
+import { TypeOrmUnitOfWork } from '@infrastructure/persistence/typeorm.unit-of-work';
 
 describe('TypeOrmUnitOfWork', () => {
   it('runs work inside a transaction with repository adapters', async () => {

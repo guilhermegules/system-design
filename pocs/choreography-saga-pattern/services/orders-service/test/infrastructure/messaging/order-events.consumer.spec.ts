@@ -1,6 +1,4 @@
-import { OrderEventsConsumer } from '@infrastructure/messaging/order-events.consumer';
 import { OrderEventsService } from '@application/order-events.service';
-import { InboxService } from '@infrastructure/messaging/inbox.service';
 import { EventEnvelope } from '@domain/event-envelope';
 import {
   OrderCancelledPayload,
@@ -8,13 +6,12 @@ import {
   ReservationFailedPayload,
 } from '@domain/event-payloads';
 import { TOPICS } from '@domain/event-topics';
+import { InboxService } from '@infrastructure/messaging/inbox.service';
+import { OrderEventsConsumer } from '@infrastructure/messaging/order-events.consumer';
 
 describe('OrderEventsConsumer', () => {
   let events: jest.Mocked<
-    Pick<
-      OrderEventsService,
-      'onReservationFailed' | 'onPaymentProcessed' | 'onOrderCancelled'
-    >
+    Pick<OrderEventsService, 'onReservationFailed' | 'onPaymentProcessed' | 'onOrderCancelled'>
   >;
   let inbox: { process: jest.Mock };
   let consumer: OrderEventsConsumer;
@@ -26,9 +23,7 @@ describe('OrderEventsConsumer', () => {
       onOrderCancelled: jest.fn(),
     };
     inbox = {
-      process: jest.fn(
-        async (_envelope: EventEnvelope, handler: () => Promise<void>) => handler(),
-      ),
+      process: jest.fn(async (_envelope: EventEnvelope, handler: () => Promise<void>) => handler()),
     };
     consumer = new OrderEventsConsumer(
       events as unknown as OrderEventsService,

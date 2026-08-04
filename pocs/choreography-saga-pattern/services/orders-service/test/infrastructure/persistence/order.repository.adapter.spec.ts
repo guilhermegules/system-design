@@ -1,6 +1,6 @@
-import { OrderRepositoryAdapter } from '@infrastructure/persistence/order.repository.adapter';
-import { OrderEntity } from '@infrastructure/persistence/order.entity';
 import { Order, OrderItem } from '@domain/order';
+import { OrderEntity } from '@infrastructure/persistence/order.entity';
+import { OrderRepositoryAdapter } from '@infrastructure/persistence/order.repository.adapter';
 
 describe('OrderRepositoryAdapter', () => {
   const items: OrderItem[] = [{ productId: 'p1', quantity: 2, unitPrice: 10 }];

@@ -1,5 +1,5 @@
-import { InboxRepositoryAdapter } from '@infrastructure/persistence/inbox.repository.adapter';
 import { EventEnvelope } from '@domain/event-envelope';
+import { InboxRepositoryAdapter } from '@infrastructure/persistence/inbox.repository.adapter';
 
 describe('InboxRepositoryAdapter', () => {
   let repo: { exists: jest.Mock; create: jest.Mock; save: jest.Mock };

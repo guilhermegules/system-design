@@ -1,5 +1,5 @@
-import { InboxEntity } from '@infrastructure/persistence/inbox.entity';
 import { InboxEvent } from '@domain/inbox-event';
+import { InboxEntity } from '@infrastructure/persistence/inbox.entity';
 
 describe('InboxEntity', () => {
   it('maps from domain to entity', () => {

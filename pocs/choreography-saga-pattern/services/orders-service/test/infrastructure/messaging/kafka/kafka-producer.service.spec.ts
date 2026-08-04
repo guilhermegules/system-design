@@ -1,5 +1,5 @@
-import { KafkaProducerService } from '@infrastructure/messaging/kafka/kafka-producer.service';
 import { EventEnvelope } from '@domain/event-envelope';
+import { KafkaProducerService } from '@infrastructure/messaging/kafka/kafka-producer.service';
 
 describe('KafkaProducerService', () => {
   let producer: { connect: jest.Mock; send: jest.Mock; disconnect: jest.Mock };

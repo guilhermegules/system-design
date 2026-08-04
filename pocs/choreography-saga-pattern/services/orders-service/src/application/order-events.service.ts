@@ -1,5 +1,3 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { Inject } from '@nestjs/common';
 import { EventEnvelope } from '@domain/event-envelope';
 import {
   OrderCancelledPayload,
@@ -8,6 +6,7 @@ import {
 } from '@domain/event-payloads';
 import { TOPICS } from '@domain/event-topics';
 import { OutboxRepository } from '@domain/ports/outbox-repository';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { OrderService } from './order.service';
 
 @Injectable()

@@ -1,7 +1,7 @@
-import { NotFoundException } from '@nestjs/common';
-import { OrdersController } from '@infrastructure/http/orders.controller';
 import { OrderService } from '@application/order.service';
 import { Order, OrderItem } from '@domain/order';
+import { OrdersController } from '@infrastructure/http/orders.controller';
+import { NotFoundException } from '@nestjs/common';
 
 describe('OrdersController', () => {
   const items: OrderItem[] = [{ productId: 'p1', quantity: 1, unitPrice: 10 }];

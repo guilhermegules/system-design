@@ -1,8 +1,8 @@
+import { EventEnvelope } from '@domain/event-envelope';
+import { InboxRepository } from '@domain/ports/inbox-repository';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { EventEnvelope } from '@domain/event-envelope';
-import { InboxRepository } from '@domain/ports/inbox-repository';
 import { InboxEntity } from './inbox.entity';
 
 @Injectable()

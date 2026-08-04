@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
-import { ScheduleModule } from '@nestjs/schedule';
 import { OrdersModule } from '@application/orders.module';
 import { EventPublisher } from '@domain/ports/event-publisher';
 import { PersistenceModule } from '@infrastructure/persistence/persistence.module';
+import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
+import { InboxService } from './inbox.service';
 import { KafkaModule } from './kafka/kafka.module';
 import { KafkaPublisherAdapter } from './kafka/kafka-publisher.adapter';
-import { InboxService } from './inbox.service';
 import { OrderEventsConsumer } from './order-events.consumer';
 import { OutboxPoller } from './outbox.poller';
 

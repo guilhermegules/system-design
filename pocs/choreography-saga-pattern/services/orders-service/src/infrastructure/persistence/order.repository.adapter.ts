@@ -1,8 +1,8 @@
+import { Order } from '@domain/order';
+import { OrderRepository } from '@domain/ports/order-repository';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Order } from '@domain/order';
-import { OrderRepository } from '@domain/ports/order-repository';
 import { OrderEntity } from './order.entity';
 
 @Injectable()
@@ -31,18 +31,12 @@ export class OrderRepositoryAdapter implements OrderRepository {
   }
 
   async completeIfPending(id: string): Promise<boolean> {
-    const result = await this.repo.update(
-      { id, status: 'PENDING' },
-      { status: 'COMPLETED' },
-    );
+    const result = await this.repo.update({ id, status: 'PENDING' }, { status: 'COMPLETED' });
     return (result.affected ?? 0) > 0;
   }
 
   async cancelIfPending(id: string): Promise<boolean> {
-    const result = await this.repo.update(
-      { id, status: 'PENDING' },
-      { status: 'CANCELLED' },
-    );
+    const result = await this.repo.update({ id, status: 'PENDING' }, { status: 'CANCELLED' });
     return (result.affected ?? 0) > 0;
   }
 }

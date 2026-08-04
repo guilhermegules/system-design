@@ -17,7 +17,9 @@ describe('configuration', () => {
 
   beforeEach(() => {
     original = { ...process.env };
-    KEYS.forEach((key) => delete process.env[key]);
+    KEYS.forEach((key) => {
+      delete process.env[key];
+    });
   });
 
   afterEach(() => {

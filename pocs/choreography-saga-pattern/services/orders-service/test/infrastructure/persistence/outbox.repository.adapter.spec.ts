@@ -1,6 +1,6 @@
-import { OutboxRepositoryAdapter } from '@infrastructure/persistence/outbox.repository.adapter';
-import { OutboxEntity } from '@infrastructure/persistence/outbox.entity';
 import { OutboxEvent } from '@domain/outbox-event';
+import { OutboxEntity } from '@infrastructure/persistence/outbox.entity';
+import { OutboxRepositoryAdapter } from '@infrastructure/persistence/outbox.repository.adapter';
 
 describe('OutboxRepositoryAdapter', () => {
   const event = new OutboxEvent(

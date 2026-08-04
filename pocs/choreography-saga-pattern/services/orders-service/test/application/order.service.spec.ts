@@ -1,11 +1,11 @@
 import { OrderService } from '@application/order.service';
 import { UnitOfWorkRunner } from '@application/ports/unit-of-work';
-import { Order, OrderItem } from '@domain/order';
 import { TOPICS } from '@domain/event-topics';
+import { Order, OrderItem } from '@domain/order';
+import { Metrics } from '@domain/ports/metrics';
 import { OrderCache } from '@domain/ports/order-cache';
 import { OrderRepository } from '@domain/ports/order-repository';
 import { OutboxRepository } from '@domain/ports/outbox-repository';
-import { Metrics } from '@domain/ports/metrics';
 
 describe('OrderService', () => {
   const items: OrderItem[] = [{ productId: 'p1', quantity: 2, unitPrice: 10 }];
@@ -56,13 +56,7 @@ describe('OrderService', () => {
       incOrdersCancelled: jest.fn(),
     };
 
-    service = new OrderService(
-      orders,
-      outbox,
-      uow as unknown as UnitOfWorkRunner,
-      cache,
-      metrics,
-    );
+    service = new OrderService(orders, uow as unknown as UnitOfWorkRunner, cache, metrics);
   });
 
   describe('createOrder', () => {

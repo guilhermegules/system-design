@@ -1,5 +1,5 @@
-import { Logger } from '@nestjs/common';
 import { RedisService } from '@infrastructure/cache/redis.service';
+import { Logger } from '@nestjs/common';
 
 describe('RedisService', () => {
   let client: {

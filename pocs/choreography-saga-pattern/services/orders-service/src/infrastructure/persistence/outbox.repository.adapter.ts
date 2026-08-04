@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { randomUUID } from 'node:crypto';
 import { OutboxEvent } from '@domain/outbox-event';
 import { OutboxRepository } from '@domain/ports/outbox-repository';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { OutboxEntity } from './outbox.entity';
 
 @Injectable()

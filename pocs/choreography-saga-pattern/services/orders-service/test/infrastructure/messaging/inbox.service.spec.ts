@@ -1,6 +1,6 @@
-import { InboxService } from '@infrastructure/messaging/inbox.service';
 import { EventEnvelope } from '@domain/event-envelope';
 import { InboxRepository } from '@domain/ports/inbox-repository';
+import { InboxService } from '@infrastructure/messaging/inbox.service';
 
 describe('InboxService', () => {
   const envelope: EventEnvelope = {

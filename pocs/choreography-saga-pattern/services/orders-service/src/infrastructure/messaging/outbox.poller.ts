@@ -1,9 +1,8 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { Inject } from '@nestjs/common';
-import { Interval } from '@nestjs/schedule';
 import { buildEnvelope } from '@domain/event-envelope';
 import { EventPublisher } from '@domain/ports/event-publisher';
 import { OutboxRepository } from '@domain/ports/outbox-repository';
+import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Interval } from '@nestjs/schedule';
 
 const POLL_INTERVAL_MS = 2000;
 

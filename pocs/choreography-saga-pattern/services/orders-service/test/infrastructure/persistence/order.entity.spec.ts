@@ -1,5 +1,5 @@
-import { OrderEntity } from '@infrastructure/persistence/order.entity';
 import { Order, OrderItem } from '@domain/order';
+import { OrderEntity } from '@infrastructure/persistence/order.entity';
 
 describe('OrderEntity', () => {
   const items: OrderItem[] = [{ productId: 'p1', quantity: 2, unitPrice: 10 }];

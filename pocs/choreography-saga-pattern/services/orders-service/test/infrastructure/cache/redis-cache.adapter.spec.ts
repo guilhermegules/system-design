@@ -1,5 +1,5 @@
-import { RedisCacheAdapter } from '@infrastructure/cache/redis-cache.adapter';
 import { RedisService } from '@infrastructure/cache/redis.service';
+import { RedisCacheAdapter } from '@infrastructure/cache/redis-cache.adapter';
 
 describe('RedisCacheAdapter', () => {
   let redis: jest.Mocked<Pick<RedisService, 'get' | 'set' | 'del'>>;

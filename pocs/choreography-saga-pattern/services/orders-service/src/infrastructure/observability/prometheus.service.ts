@@ -1,10 +1,6 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import {
-  collectDefaultMetrics,
-  Counter,
-  Registry,
-} from 'prom-client';
 import { Metrics } from '@domain/ports/metrics';
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Counter, collectDefaultMetrics, Registry } from 'prom-client';
 
 @Injectable()
 export class PrometheusService implements Metrics, OnModuleInit {

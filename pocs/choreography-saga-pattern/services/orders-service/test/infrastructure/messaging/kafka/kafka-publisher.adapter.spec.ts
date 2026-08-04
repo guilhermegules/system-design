@@ -1,6 +1,6 @@
-import { KafkaPublisherAdapter } from '@infrastructure/messaging/kafka/kafka-publisher.adapter';
-import { KafkaProducerService } from '@infrastructure/messaging/kafka/kafka-producer.service';
 import { EventEnvelope } from '@domain/event-envelope';
+import { KafkaProducerService } from '@infrastructure/messaging/kafka/kafka-producer.service';
+import { KafkaPublisherAdapter } from '@infrastructure/messaging/kafka/kafka-publisher.adapter';
 
 describe('KafkaPublisherAdapter', () => {
   it('delegates publish to the producer', async () => {

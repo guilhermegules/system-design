@@ -1,5 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 import { InboxEvent } from '@domain/inbox-event';
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('inbox_events')
 export class InboxEntity {

@@ -1,5 +1,4 @@
-import { Controller } from '@nestjs/common';
-import { EventPattern, Payload } from '@nestjs/microservices';
+import { OrderEventsService } from '@application/order-events.service';
 import { EventEnvelope } from '@domain/event-envelope';
 import {
   OrderCancelledPayload,
@@ -7,7 +6,8 @@ import {
   ReservationFailedPayload,
 } from '@domain/event-payloads';
 import { TOPICS } from '@domain/event-topics';
-import { OrderEventsService } from '@application/order-events.service';
+import { Controller } from '@nestjs/common';
+import { EventPattern, Payload } from '@nestjs/microservices';
 import { InboxService } from './inbox.service';
 
 @Controller()
@@ -18,12 +18,16 @@ export class OrderEventsConsumer {
   ) {}
 
   @EventPattern(TOPICS.inventoryReservationFailed)
-  async onReservationFailed(@Payload() envelope: EventEnvelope<ReservationFailedPayload>): Promise<void> {
+  async onReservationFailed(
+    @Payload() envelope: EventEnvelope<ReservationFailedPayload>,
+  ): Promise<void> {
     await this.inbox.process(envelope, () => this.events.onReservationFailed(envelope));
   }
 
   @EventPattern(TOPICS.paymentProcessed)
-  async onPaymentProcessed(@Payload() envelope: EventEnvelope<PaymentProcessedPayload>): Promise<void> {
+  async onPaymentProcessed(
+    @Payload() envelope: EventEnvelope<PaymentProcessedPayload>,
+  ): Promise<void> {
     await this.inbox.process(envelope, () => this.events.onPaymentProcessed(envelope));
   }
 

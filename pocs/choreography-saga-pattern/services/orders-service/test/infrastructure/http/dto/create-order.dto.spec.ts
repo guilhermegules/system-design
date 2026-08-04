@@ -1,7 +1,7 @@
 import 'reflect-metadata';
+import { CreateOrderDto } from '@infrastructure/http/dto/create-order.dto';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
-import { CreateOrderDto } from '@infrastructure/http/dto/create-order.dto';
 
 describe('CreateOrderDto', () => {
   const valid = {
@@ -27,9 +27,7 @@ describe('CreateOrderDto', () => {
   });
 
   it('rejects an invalid simulate value', async () => {
-    const errors = await validate(
-      plainToInstance(CreateOrderDto, { ...valid, simulate: 'bogus' }),
-    );
+    const errors = await validate(plainToInstance(CreateOrderDto, { ...valid, simulate: 'bogus' }));
     expect(errors).toHaveLength(1);
   });
 

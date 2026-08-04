@@ -1,13 +1,13 @@
-import { OrderEventsService } from '@application/order-events.service';
 import { OrderService } from '@application/order.service';
-import { Order, OrderItem } from '@domain/order';
-import { TOPICS } from '@domain/event-topics';
+import { OrderEventsService } from '@application/order-events.service';
 import { EventEnvelope } from '@domain/event-envelope';
 import {
   OrderCancelledPayload,
   PaymentProcessedPayload,
   ReservationFailedPayload,
 } from '@domain/event-payloads';
+import { TOPICS } from '@domain/event-topics';
+import { Order, OrderItem } from '@domain/order';
 import { OutboxRepository } from '@domain/ports/outbox-repository';
 
 describe('OrderEventsService', () => {

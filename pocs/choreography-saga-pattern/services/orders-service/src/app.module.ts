@@ -1,15 +1,15 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ScheduleModule } from '@nestjs/schedule';
-import configuration from '@config/configuration';
 import { OrdersModule } from '@application/orders.module';
+import configuration from '@config/configuration';
 import { CacheModule } from '@infrastructure/cache/cache.module';
 import { HttpModule } from '@infrastructure/http/http.module';
 import { KafkaModule } from '@infrastructure/messaging/kafka/kafka.module';
 import { MessagingModule } from '@infrastructure/messaging/messaging.module';
 import { ObservabilityModule } from '@infrastructure/observability/observability.module';
 import { PersistenceModule } from '@infrastructure/persistence/persistence.module';
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [

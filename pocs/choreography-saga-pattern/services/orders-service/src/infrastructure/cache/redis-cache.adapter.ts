@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
 import { OrderCache } from '@domain/ports/order-cache';
+import { Injectable } from '@nestjs/common';
 import { RedisService } from './redis.service';
 
 @Injectable()

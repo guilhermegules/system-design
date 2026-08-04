@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
 import { EventEnvelope } from '@domain/event-envelope';
 import { EventPublisher } from '@domain/ports/event-publisher';
+import { Injectable } from '@nestjs/common';
 import { KafkaProducerService } from './kafka-producer.service';
 
 @Injectable()

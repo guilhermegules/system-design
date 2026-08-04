@@ -1,6 +1,15 @@
-import { Body, Controller, Get, NotFoundException, Param, ParseUUIDPipe, Post, Query } from '@nestjs/common';
 import { OrderService } from '@application/order.service';
 import { Order } from '@domain/order';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  ParseUUIDPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 
 @Controller('orders')

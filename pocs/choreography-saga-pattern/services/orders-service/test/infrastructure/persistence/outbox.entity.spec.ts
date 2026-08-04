@@ -1,5 +1,5 @@
-import { OutboxEntity } from '@infrastructure/persistence/outbox.entity';
 import { OutboxEvent } from '@domain/outbox-event';
+import { OutboxEntity } from '@infrastructure/persistence/outbox.entity';
 
 describe('OutboxEntity', () => {
   const event = new OutboxEvent(

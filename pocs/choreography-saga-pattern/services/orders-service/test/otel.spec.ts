@@ -2,7 +2,7 @@ const mockSdk = {
   start: jest.fn(),
   shutdown: jest.fn(),
 };
-let mockIgnoreHook: ((request: { url?: string }) => boolean) | undefined;
+let mockIgnoreHook: (request: { url?: string }) => boolean = () => false;
 
 jest.mock('@opentelemetry/sdk-node', () => ({
   NodeSDK: jest.fn(() => mockSdk),
@@ -18,7 +18,7 @@ jest.mock('@opentelemetry/auto-instrumentations-node', () => ({
       };
     }) => {
       mockIgnoreHook =
-        options['@opentelemetry/instrumentation-http']?.ignoreIncomingRequestHook;
+        options['@opentelemetry/instrumentation-http']?.ignoreIncomingRequestHook ?? (() => false);
       return [];
     },
   ),
@@ -34,11 +34,10 @@ describe('otel', () => {
   });
 
   it('ignores health and metrics requests from tracing', () => {
-    expect(mockIgnoreHook).toBeDefined();
-    expect(mockIgnoreHook!({ url: '/health' })).toBe(true);
-    expect(mockIgnoreHook!({ url: '/metrics' })).toBe(true);
-    expect(mockIgnoreHook!({ url: '/orders' })).toBe(false);
-    expect(mockIgnoreHook!({})).toBe(false);
+    expect(mockIgnoreHook({ url: '/health' })).toBe(true);
+    expect(mockIgnoreHook({ url: '/metrics' })).toBe(true);
+    expect(mockIgnoreHook({ url: '/orders' })).toBe(false);
+    expect(mockIgnoreHook({})).toBe(false);
   });
 
   it('shuts down the SDK on SIGTERM', () => {

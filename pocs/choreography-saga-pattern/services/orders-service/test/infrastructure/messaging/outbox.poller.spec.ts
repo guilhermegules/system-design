@@ -1,7 +1,7 @@
-import { OutboxPoller } from '@infrastructure/messaging/outbox.poller';
 import { OutboxEvent } from '@domain/outbox-event';
-import { OutboxRepository } from '@domain/ports/outbox-repository';
 import { EventPublisher } from '@domain/ports/event-publisher';
+import { OutboxRepository } from '@domain/ports/outbox-repository';
+import { OutboxPoller } from '@infrastructure/messaging/outbox.poller';
 
 describe('OutboxPoller', () => {
   const event = new OutboxEvent(

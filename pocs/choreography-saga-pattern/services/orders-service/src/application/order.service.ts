@@ -1,14 +1,12 @@
-import { Injectable, Logger } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
-import { Inject } from '@nestjs/common';
+import { UnitOfWorkRunner } from '@application/ports/unit-of-work';
+import { TOPICS } from '@domain/event-topics';
+import { Order } from '@domain/order';
 import { Metrics } from '@domain/ports/metrics';
 import { OrderCache } from '@domain/ports/order-cache';
 import { OrderRepository } from '@domain/ports/order-repository';
-import { OutboxRepository } from '@domain/ports/outbox-repository';
-import { TOPICS } from '@domain/event-topics';
-import { Order } from '@domain/order';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { CreateOrderCommand } from './create-order.command';
-import { UnitOfWorkRunner } from '@application/ports/unit-of-work';
 
 const ORDER_TTL_SECONDS = 60;
 
@@ -18,7 +16,6 @@ export class OrderService {
 
   constructor(
     @Inject(OrderRepository) private readonly orders: OrderRepository,
-    @Inject(OutboxRepository) private readonly outbox: OutboxRepository,
     @Inject(UnitOfWorkRunner) private readonly uow: UnitOfWorkRunner,
     @Inject(OrderCache) private readonly cache: OrderCache,
     @Inject(Metrics) private readonly metrics: Metrics,
@@ -26,10 +23,7 @@ export class OrderService {
 
   async createOrder(dto: CreateOrderCommand): Promise<Order> {
     const id = randomUUID();
-    const totalAmount = dto.items.reduce(
-      (sum, item) => sum + item.quantity * item.unitPrice,
-      0,
-    );
+    const totalAmount = dto.items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
 
     const order = Order.create({
       id,
