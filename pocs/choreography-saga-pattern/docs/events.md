@@ -39,8 +39,8 @@ Provisioned by `infra/kafka/init-topics.sh` (3 partitions, RF 1):
 | `inventory.reserved`           | inventory-service | payment-service            |
 | `inventory.reservation-failed` | inventory-service | orders-service             |
 | `payment.processed`            | payment-service   | orders-service             |
-| `payment.failed`               | payment-service   | orders-service             |
-| `order.cancelled`              | orders-service    | inventory-service          |
+| `payments.unauthorized`        | payment-service   | inventory-service          |
+| `order.cancelled`              | inventory-service | orders-service             |
 | `order.completed`              | orders-service    | — (audit / observability)  |
 
 ## Saga Flow
@@ -54,9 +54,9 @@ POST /orders
    │ ◄────────────────────────────────────────────────────────────────────────┘
    │                                payment-service
    │                                  │  success  payment.processed ──► order COMPLETED (order.completed)
-   │                                  │  failure  payment.failed ─────► order CANCELLED + order.cancelled
-   │                                                                            │
-   │ ◄───────────────────────────────────────────────────────────────────────────┘ (inventory releases stock)
+   │                                  │  failure  payments.unauthorized ─► inventory releases stock
+   │                                  │                                     and emits order.cancelled ─► order CANCELLED
+   │
 ```
 
 ## Payloads
@@ -113,27 +113,31 @@ payment service can process the charge without an extra lookup.
 }
 ```
 
-### `payment.failed` (payment → orders)
+### `payments.unauthorized` (payment → inventory)
 
 ```json
 {
   "orderId": "uuid",
   "paymentId": "uuid",
-  "reason": "PAYMENT_REJECTED"
+  "reason": "PAYMENT_UNAUTHORIZED"
 }
 ```
 
-### `order.cancelled` (orders → inventory)
+Emitted when the payment is rejected. Inventory reacts by releasing the
+active reservations for the order and emitting `order.cancelled`.
+
+### `order.cancelled` (inventory → orders)
 
 ```json
 {
   "orderId": "uuid",
-  "reason": "PAYMENT_FAILED | INVENTORY_RESERVATION_FAILED"
+  "reason": "PAYMENT_UNAUTHORIZED"
 }
 ```
 
-Inventory reacts by releasing any active reservation for the order. If no
-reservation exists the event is a no-op.
+Orders reacts by marking the order `CANCELLED`. The reservation-failure path
+(`inventory.reservation-failed`) cancels the order directly without emitting
+this event, since no stock was ever reserved.
 
 ### `order.completed` (orders → audit)
 

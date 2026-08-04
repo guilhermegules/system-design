@@ -4,8 +4,8 @@ import tools.jackson.databind.ObjectMapper;
 import com.saga.inventory.domain.Reservation;
 import com.saga.inventory.domain.StockItem;
 import com.saga.inventory.events.EventEnvelope;
-import com.saga.inventory.events.OrderCancelledPayload;
 import com.saga.inventory.events.OrderCreatedPayload;
+import com.saga.inventory.events.PaymentsUnauthorizedPayload;
 import com.saga.inventory.repository.ReservationRepository;
 import com.saga.inventory.repository.StockItemRepository;
 import java.time.Instant;
@@ -81,9 +81,20 @@ public class InventoryService {
     }
 
     @Transactional
-    public void handleOrderCancelled(EventEnvelope envelope) {
-        OrderCancelledPayload payload = mapper.convertValue(envelope.payload(), OrderCancelledPayload.class);
-        List<Reservation> active = reservationRepo.findByOrderIdAndStatus(payload.orderId(), Reservation.Status.ACTIVE);
+    public void handlePaymentUnauthorized(EventEnvelope envelope) {
+        PaymentsUnauthorizedPayload payload = mapper.convertValue(envelope.payload(), PaymentsUnauthorizedPayload.class);
+        UUID orderId = payload.orderId();
+
+        releaseReservations(orderId);
+
+        outbox.enqueue("order.cancelled", orderId, Map.of(
+                "orderId", orderId.toString(),
+                "reason", "PAYMENT_UNAUTHORIZED"));
+        log.info("order {} cancelled (payment unauthorized), stock released", orderId);
+    }
+
+    private void releaseReservations(UUID orderId) {
+        List<Reservation> active = reservationRepo.findByOrderIdAndStatus(orderId, Reservation.Status.ACTIVE);
         for (Reservation reservation : active) {
             reservation.setStatus(Reservation.Status.RELEASED);
             reservationRepo.save(reservation);
@@ -95,7 +106,7 @@ public class InventoryService {
             }
         }
         if (!active.isEmpty()) {
-            log.info("released {} reservation(s) for order {}", active.size(), payload.orderId());
+            log.info("released {} reservation(s) for order {}", active.size(), orderId);
         }
     }
 

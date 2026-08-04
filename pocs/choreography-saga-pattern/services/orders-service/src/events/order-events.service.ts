@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { EventEnvelope } from './event-envelope';
 import {
-  PaymentFailedPayload,
+  OrderCancelledPayload,
   PaymentProcessedPayload,
   ReservationFailedPayload,
 } from './event-payloads';
@@ -28,10 +28,6 @@ export class OrderEventsService {
 
     const transitioned = await this.orders.cancelOrder(orderId);
     if (transitioned) {
-      await this.outbox.enqueue(TOPICS.orderCancelled, orderId, {
-        orderId,
-        reason: 'INVENTORY_RESERVATION_FAILED',
-      });
       await this.orders.invalidateCache(orderId, order.customerId);
       this.logger.log(`order ${orderId} cancelled (inventory reservation failed)`);
     }
@@ -53,22 +49,18 @@ export class OrderEventsService {
     }
   }
 
-  async onPaymentFailed(envelope: EventEnvelope<PaymentFailedPayload>): Promise<void> {
+  async onOrderCancelled(envelope: EventEnvelope<OrderCancelledPayload>): Promise<void> {
     const { orderId } = envelope.payload;
     const order = await this.orders.getOrder(orderId);
     if (!order) {
-      this.logger.warn(`order ${orderId} not found, ignoring payment failed`);
+      this.logger.warn(`order ${orderId} not found, ignoring order cancelled`);
       return;
     }
 
     const transitioned = await this.orders.cancelOrder(orderId);
     if (transitioned) {
-      await this.outbox.enqueue(TOPICS.orderCancelled, orderId, {
-        orderId,
-        reason: 'PAYMENT_FAILED',
-      });
       await this.orders.invalidateCache(orderId, order.customerId);
-      this.logger.log(`order ${orderId} cancelled (payment failed)`);
+      this.logger.log(`order ${orderId} cancelled (${envelope.payload.reason})`);
     }
   }
 }

@@ -27,10 +27,10 @@ public class OrderEventConsumer {
         inbox.process(envelope, () -> inventory.handleOrderCreated(envelope));
     }
 
-    @KafkaListener(topics = "order.cancelled", groupId = "inventory-service")
-    public void onOrderCancelled(String message) {
+    @KafkaListener(topics = "payments.unauthorized", groupId = "inventory-service")
+    public void onPaymentsUnauthorized(String message) {
         EventEnvelope envelope = parse(message);
-        inbox.process(envelope, () -> inventory.handleOrderCancelled(envelope));
+        inbox.process(envelope, () -> inventory.handlePaymentUnauthorized(envelope));
     }
 
     private EventEnvelope parse(String message) {

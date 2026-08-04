@@ -8,7 +8,7 @@ TOPICS=(
   "inventory.reserved"
   "inventory.reservation-failed"
   "payment.processed"
-  "payment.failed"
+  "payments.unauthorized"
   "order.cancelled"
   "order.completed"
 )

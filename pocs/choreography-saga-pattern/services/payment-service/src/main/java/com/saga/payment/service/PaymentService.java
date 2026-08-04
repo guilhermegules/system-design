@@ -35,10 +35,10 @@ public class PaymentService {
 
         if ("payment_failure".equals(payload.simulate())) {
             log.warn("simulated payment failure for order {}", orderId);
-            outbox.enqueue("payment.failed", orderId, Map.of(
+            outbox.enqueue("payments.unauthorized", orderId, Map.of(
                     "orderId", orderId.toString(),
                     "paymentId", UUID.randomUUID().toString(),
-                    "reason", "PAYMENT_REJECTED"));
+                    "reason", "PAYMENT_UNAUTHORIZED"));
             return;
         }
 
