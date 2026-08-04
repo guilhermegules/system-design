@@ -3,6 +3,11 @@ import { OrderService } from '@application/order.service';
 import { Order, OrderItem } from '@domain/order';
 import { TOPICS } from '@domain/event-topics';
 import { EventEnvelope } from '@domain/event-envelope';
+import {
+  OrderCancelledPayload,
+  PaymentProcessedPayload,
+  ReservationFailedPayload,
+} from '@domain/event-payloads';
 import { OutboxRepository } from '@domain/ports/outbox-repository';
 
 describe('OrderEventsService', () => {
@@ -43,7 +48,7 @@ describe('OrderEventsService', () => {
   });
 
   describe('onReservationFailed', () => {
-    const envelope: EventEnvelope = {
+    const envelope: EventEnvelope<ReservationFailedPayload> = {
       eventId: 'event-1',
       correlationId: 'correlation-1',
       eventType: TOPICS.inventoryReservationFailed,
@@ -80,7 +85,7 @@ describe('OrderEventsService', () => {
   });
 
   describe('onPaymentProcessed', () => {
-    const envelope: EventEnvelope = {
+    const envelope: EventEnvelope<PaymentProcessedPayload> = {
       eventId: 'event-2',
       correlationId: 'correlation-2',
       eventType: TOPICS.paymentProcessed,
@@ -122,7 +127,7 @@ describe('OrderEventsService', () => {
   });
 
   describe('onOrderCancelled', () => {
-    const envelope: EventEnvelope = {
+    const envelope: EventEnvelope<OrderCancelledPayload> = {
       eventId: 'event-3',
       correlationId: 'correlation-3',
       eventType: TOPICS.orderCancelled,
