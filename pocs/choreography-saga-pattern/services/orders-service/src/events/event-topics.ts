@@ -5,7 +5,6 @@ export const TOPICS = {
   inventoryReserved: 'inventory.reserved',
   inventoryReservationFailed: 'inventory.reservation-failed',
   paymentProcessed: 'payment.processed',
-  paymentFailed: 'payment.failed',
 } as const;
 
 export type Topic = (typeof TOPICS)[keyof typeof TOPICS];

@@ -82,7 +82,7 @@ sequenceDiagram
 ### Compensation paths
 
 - **Out of stock** → inventory emits `inventory.reservation-failed` → order becomes **CANCELLED**.
-- **Payment failure** (or `?simulate=payment_failure`) → payment emits `payment.failed` → order becomes **CANCELLED**, and `order.cancelled` is emitted → inventory **releases** the reserved stock.
+- **Payment failure** (or `?simulate=payment_failure`) → payment emits `payments.unauthorized` → inventory **releases** the reserved stock and emits `order.cancelled` → order becomes **CANCELLED**.
 
 ## Services
 
@@ -90,7 +90,7 @@ sequenceDiagram
 | --- | --- | --- | --- | --- |
 | orders-service | NestJS 11 + Fastify (Node 24) | 8080 | orders | Saga entry point, orchestration-free state machine |
 | inventory-service | Spring Boot 4.1 + Java 25 | 8081 | inventory | Reserves/releases stock, emits reservation events |
-| payment-service | Spring Boot 4.1 + Java 25 | 8082 | payment | Processes payments, emits processed/failed events |
+| payment-service | Spring Boot 4.1 + Java 25 | 8082 | payment | Processes payments, emits processed/unauthorized events |
 
 ## Reliability patterns
 
@@ -145,7 +145,7 @@ curl -s -X POST http://localhost:8000/orders \
   -d '{"customerId":"c-1","items":[{"sku":"sku-1","quantity":2}],"totalAmount":99.90,"currency":"USD","simulate":"inventory_failure"}'
 ```
 
-Simulate a payment failure (payment emits `payment.failed`, order CANCELLED, stock released):
+Simulate a payment failure (payment emits `payments.unauthorized`, inventory releases stock and emits `order.cancelled`, order CANCELLED):
 
 ```bash
 curl -s -X POST http://localhost:8000/orders \

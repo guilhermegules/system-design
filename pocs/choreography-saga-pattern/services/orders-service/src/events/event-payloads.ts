@@ -20,8 +20,7 @@ export interface PaymentProcessedPayload {
   status: string;
 }
 
-export interface PaymentFailedPayload {
+export interface OrderCancelledPayload {
   orderId: string;
-  paymentId: string;
   reason: string;
 }
