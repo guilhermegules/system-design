@@ -1,5 +1,7 @@
 import { EventEnvelope } from '../event-envelope';
 
-export abstract class EventPublisher {
-  abstract publish(envelope: EventEnvelope): Promise<void>;
+export interface EventPublisher {
+  publish(envelope: EventEnvelope): Promise<void>;
 }
+
+export const EventPublisher = 'EventPublisher';

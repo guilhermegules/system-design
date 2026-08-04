@@ -1,9 +1,11 @@
 import { Order } from '../order';
 
-export abstract class OrderRepository {
-  abstract save(order: Order): Promise<Order>;
-  abstract findById(id: string): Promise<Order | null>;
-  abstract findByCustomer(customerId: string): Promise<Order[]>;
-  abstract completeIfPending(id: string): Promise<boolean>;
-  abstract cancelIfPending(id: string): Promise<boolean>;
+export interface OrderRepository {
+  save(order: Order): Promise<Order>;
+  findById(id: string): Promise<Order | null>;
+  findByCustomer(customerId: string): Promise<Order[]>;
+  completeIfPending(id: string): Promise<boolean>;
+  cancelIfPending(id: string): Promise<boolean>;
 }
+
+export const OrderRepository = 'OrderRepository';

@@ -6,6 +6,8 @@ export interface UnitOfWork {
   outboxRepository: OutboxRepository;
 }
 
-export abstract class UnitOfWorkRunner {
-  abstract run<T>(work: (uow: UnitOfWork) => Promise<T>): Promise<T>;
+export interface UnitOfWorkRunner {
+  run<T>(work: (uow: UnitOfWork) => Promise<T>): Promise<T>;
 }
+
+export const UnitOfWorkRunner = 'UnitOfWorkRunner';

@@ -1,6 +1,8 @@
 import { EventEnvelope } from '../event-envelope';
 
-export abstract class InboxRepository {
-  abstract exists(eventId: string): Promise<boolean>;
-  abstract markProcessed(envelope: EventEnvelope): Promise<void>;
+export interface InboxRepository {
+  exists(eventId: string): Promise<boolean>;
+  markProcessed(envelope: EventEnvelope): Promise<void>;
 }
+
+export const InboxRepository = 'InboxRepository';

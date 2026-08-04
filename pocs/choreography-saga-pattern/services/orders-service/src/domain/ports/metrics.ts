@@ -1,5 +1,7 @@
-export abstract class Metrics {
-  abstract incOrdersCreated(): void;
-  abstract incOrdersCompleted(): void;
-  abstract incOrdersCancelled(): void;
+export interface Metrics {
+  incOrdersCreated(): void;
+  incOrdersCompleted(): void;
+  incOrdersCancelled(): void;
 }
+
+export const Metrics = 'Metrics';

@@ -1,7 +1,9 @@
 import { OutboxEvent } from '../outbox-event';
 
-export abstract class OutboxRepository {
-  abstract enqueue(eventType: string, correlationId: string, payload: unknown): Promise<void>;
-  abstract fetchPending(limit?: number): Promise<OutboxEvent[]>;
-  abstract markSent(id: string, sentAt: Date): Promise<void>;
+export interface OutboxRepository {
+  enqueue(eventType: string, correlationId: string, payload: unknown): Promise<void>;
+  fetchPending(limit?: number): Promise<OutboxEvent[]>;
+  markSent(id: string, sentAt: Date): Promise<void>;
 }
+
+export const OutboxRepository = 'OutboxRepository';
