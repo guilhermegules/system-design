@@ -1,4 +1,4 @@
-package com.saga.payment.events;
+package com.saga.payment.domain.event;
 
 import java.time.Instant;
 import java.util.Map;

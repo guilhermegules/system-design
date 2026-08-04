@@ -1,10 +1,9 @@
-package com.saga.payment.service;
+package com.saga.payment.application;
 
-import tools.jackson.databind.ObjectMapper;
+import com.saga.payment.application.port.OutboxRepository;
+import com.saga.payment.application.port.PaymentRepository;
 import com.saga.payment.domain.Payment;
-import com.saga.payment.events.EventEnvelope;
-import com.saga.payment.events.InventoryReservedPayload;
-import com.saga.payment.repository.PaymentRepository;
+import com.saga.payment.domain.event.InventoryReservedPayload;
 import java.time.Instant;
 import java.util.Map;
 import java.util.UUID;
@@ -19,18 +18,15 @@ public class PaymentService {
     private static final Logger log = LoggerFactory.getLogger(PaymentService.class);
 
     private final PaymentRepository paymentRepo;
-    private final OutboxService outbox;
-    private final ObjectMapper mapper;
+    private final OutboxRepository outbox;
 
-    public PaymentService(PaymentRepository paymentRepo, OutboxService outbox, ObjectMapper mapper) {
+    public PaymentService(PaymentRepository paymentRepo, OutboxRepository outbox) {
         this.paymentRepo = paymentRepo;
         this.outbox = outbox;
-        this.mapper = mapper;
     }
 
     @Transactional
-    public void handleInventoryReserved(EventEnvelope envelope) {
-        InventoryReservedPayload payload = mapper.convertValue(envelope.payload(), InventoryReservedPayload.class);
+    public void handleInventoryReserved(InventoryReservedPayload payload) {
         UUID orderId = payload.orderId();
 
         if ("payment_failure".equals(payload.simulate())) {

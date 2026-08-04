@@ -1,12 +1,13 @@
-package com.saga.payment.listener;
+package com.saga.payment.infrastructure.adapter.in.kafka;
 
-import tools.jackson.core.JacksonException;
-import tools.jackson.databind.ObjectMapper;
-import com.saga.payment.events.EventEnvelope;
-import com.saga.payment.service.InboxService;
-import com.saga.payment.service.PaymentService;
+import com.saga.payment.application.InboxService;
+import com.saga.payment.application.PaymentService;
+import com.saga.payment.domain.event.EventEnvelope;
+import com.saga.payment.domain.event.InventoryReservedPayload;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 public class InventoryEventConsumer {
@@ -24,7 +25,8 @@ public class InventoryEventConsumer {
     @KafkaListener(topics = "inventory.reserved", groupId = "payment-service")
     public void onInventoryReserved(String message) {
         EventEnvelope envelope = parse(message);
-        inbox.process(envelope, () -> payment.handleInventoryReserved(envelope));
+        InventoryReservedPayload payload = mapper.convertValue(envelope.payload(), InventoryReservedPayload.class);
+        inbox.process(envelope, () -> payment.handleInventoryReserved(payload));
     }
 
     private EventEnvelope parse(String message) {

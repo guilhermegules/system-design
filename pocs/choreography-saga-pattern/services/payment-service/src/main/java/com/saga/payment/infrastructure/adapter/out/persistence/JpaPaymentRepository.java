@@ -1,0 +1,7 @@
+package com.saga.payment.infrastructure.adapter.out.persistence;
+
+import java.util.UUID;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface JpaPaymentRepository extends JpaRepository<PaymentEntity, UUID> {
+}

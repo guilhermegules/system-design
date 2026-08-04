@@ -1,4 +1,4 @@
-package com.saga.payment.events;
+package com.saga.payment.domain.event;
 
 import java.math.BigDecimal;
 import java.util.UUID;

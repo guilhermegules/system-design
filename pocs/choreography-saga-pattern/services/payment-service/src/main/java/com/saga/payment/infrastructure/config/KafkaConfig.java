@@ -1,4 +1,4 @@
-package com.saga.payment.config;
+package com.saga.payment.infrastructure.config;
 
 import java.util.HashMap;
 import java.util.Map;
