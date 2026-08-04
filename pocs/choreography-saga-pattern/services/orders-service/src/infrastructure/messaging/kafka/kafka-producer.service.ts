@@ -1,6 +1,6 @@
 import { Inject, Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Kafka, Producer } from 'kafkajs';
-import { EventEnvelope } from '../../../domain/event-envelope';
+import { EventEnvelope } from '@domain/event-envelope';
 import { KAFKA_CLIENT } from './kafka.module';
 
 @Injectable()

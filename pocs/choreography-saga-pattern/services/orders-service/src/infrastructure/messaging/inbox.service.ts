@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Inject } from '@nestjs/common';
-import { EventEnvelope } from '../../domain/event-envelope';
-import { InboxRepository } from '../../domain/ports/inbox-repository';
+import { EventEnvelope } from '@domain/event-envelope';
+import { InboxRepository } from '@domain/ports/inbox-repository';
 
 export type InboxProcessResult = 'processed' | 'duplicate';
 

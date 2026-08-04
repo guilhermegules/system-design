@@ -1,5 +1,5 @@
-import { OrderRepository } from '../../domain/ports/order-repository';
-import { OutboxRepository } from '../../domain/ports/outbox-repository';
+import { OrderRepository } from '@domain/ports/order-repository';
+import { OutboxRepository } from '@domain/ports/outbox-repository';
 
 export interface UnitOfWork {
   orderRepository: OrderRepository;

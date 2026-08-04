@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
-import { UnitOfWork, UnitOfWorkRunner } from '../../application/ports/unit-of-work';
+import { UnitOfWork, UnitOfWorkRunner } from '@application/ports/unit-of-work';
 import { OrderEntity } from './order.entity';
 import { OrderRepositoryAdapter } from './order.repository.adapter';
 import { OutboxEntity } from './outbox.entity';

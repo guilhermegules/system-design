@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { InboxRepository } from '../../domain/ports/inbox-repository';
-import { OrderRepository } from '../../domain/ports/order-repository';
-import { OutboxRepository } from '../../domain/ports/outbox-repository';
-import { UnitOfWorkRunner } from '../../application/ports/unit-of-work';
+import { InboxRepository } from '@domain/ports/inbox-repository';
+import { OrderRepository } from '@domain/ports/order-repository';
+import { OutboxRepository } from '@domain/ports/outbox-repository';
+import { UnitOfWorkRunner } from '@application/ports/unit-of-work';
 import { InboxEntity } from './inbox.entity';
 import { InboxRepositoryAdapter } from './inbox.repository.adapter';
 import { OrderEntity } from './order.entity';

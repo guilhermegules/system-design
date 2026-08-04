@@ -1,13 +1,13 @@
 import { Controller } from '@nestjs/common';
 import { EventPattern, Payload } from '@nestjs/microservices';
-import { EventEnvelope } from '../../domain/event-envelope';
+import { EventEnvelope } from '@domain/event-envelope';
 import {
   OrderCancelledPayload,
   PaymentProcessedPayload,
   ReservationFailedPayload,
-} from '../../domain/event-payloads';
-import { TOPICS } from '../../domain/event-topics';
-import { OrderEventsService } from '../../application/order-events.service';
+} from '@domain/event-payloads';
+import { TOPICS } from '@domain/event-topics';
+import { OrderEventsService } from '@application/order-events.service';
 import { InboxService } from './inbox.service';
 
 @Controller()

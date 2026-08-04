@@ -1,14 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import { Inject } from '@nestjs/common';
-import { Metrics } from '../domain/ports/metrics';
-import { OrderCache } from '../domain/ports/order-cache';
-import { OrderRepository } from '../domain/ports/order-repository';
-import { OutboxRepository } from '../domain/ports/outbox-repository';
-import { TOPICS } from '../domain/event-topics';
-import { Order } from '../domain/order';
+import { Metrics } from '@domain/ports/metrics';
+import { OrderCache } from '@domain/ports/order-cache';
+import { OrderRepository } from '@domain/ports/order-repository';
+import { OutboxRepository } from '@domain/ports/outbox-repository';
+import { TOPICS } from '@domain/event-topics';
+import { Order } from '@domain/order';
 import { CreateOrderCommand } from './create-order.command';
-import { UnitOfWorkRunner } from './ports/unit-of-work';
+import { UnitOfWorkRunner } from '@application/ports/unit-of-work';
 
 const ORDER_TTL_SECONDS = 60;
 

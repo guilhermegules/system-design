@@ -1,4 +1,4 @@
-import { OrderItem } from '../domain/order';
+import { OrderItem } from '@domain/order';
 
 export interface CreateOrderCommand {
   customerId: string;

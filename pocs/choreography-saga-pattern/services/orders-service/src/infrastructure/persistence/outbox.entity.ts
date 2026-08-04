@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { OutboxEvent, OutboxStatus } from '../../domain/outbox-event';
+import { OutboxEvent, OutboxStatus } from '@domain/outbox-event';
 
 @Entity('outbox')
 export class OutboxEntity {

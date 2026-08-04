@@ -1,13 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Inject } from '@nestjs/common';
-import { EventEnvelope } from '../domain/event-envelope';
+import { EventEnvelope } from '@domain/event-envelope';
 import {
   OrderCancelledPayload,
   PaymentProcessedPayload,
   ReservationFailedPayload,
-} from '../domain/event-payloads';
-import { TOPICS } from '../domain/event-topics';
-import { OutboxRepository } from '../domain/ports/outbox-repository';
+} from '@domain/event-payloads';
+import { TOPICS } from '@domain/event-topics';
+import { OutboxRepository } from '@domain/ports/outbox-repository';
 import { OrderService } from './order.service';
 
 @Injectable()

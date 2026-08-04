@@ -4,7 +4,7 @@ import {
   Counter,
   Registry,
 } from 'prom-client';
-import { Metrics } from '../../domain/ports/metrics';
+import { Metrics } from '@domain/ports/metrics';
 
 @Injectable()
 export class PrometheusService implements Metrics, OnModuleInit {
