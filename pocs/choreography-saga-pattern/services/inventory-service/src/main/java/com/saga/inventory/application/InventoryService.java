@@ -1,13 +1,12 @@
-package com.saga.inventory.service;
+package com.saga.inventory.application;
 
-import tools.jackson.databind.ObjectMapper;
+import com.saga.inventory.application.port.OutboxRepository;
+import com.saga.inventory.application.port.ReservationRepository;
+import com.saga.inventory.application.port.StockRepository;
 import com.saga.inventory.domain.Reservation;
 import com.saga.inventory.domain.StockItem;
-import com.saga.inventory.events.EventEnvelope;
-import com.saga.inventory.events.OrderCreatedPayload;
-import com.saga.inventory.events.PaymentsUnauthorizedPayload;
-import com.saga.inventory.repository.ReservationRepository;
-import com.saga.inventory.repository.StockItemRepository;
+import com.saga.inventory.domain.event.OrderCreatedPayload;
+import com.saga.inventory.domain.event.PaymentsUnauthorizedPayload;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
@@ -22,25 +21,21 @@ public class InventoryService {
 
     private static final Logger log = LoggerFactory.getLogger(InventoryService.class);
 
-    private final StockItemRepository stockRepo;
+    private final StockRepository stockRepo;
     private final ReservationRepository reservationRepo;
-    private final OutboxService outbox;
-    private final ObjectMapper mapper;
+    private final OutboxRepository outbox;
 
     public InventoryService(
-            StockItemRepository stockRepo,
+            StockRepository stockRepo,
             ReservationRepository reservationRepo,
-            OutboxService outbox,
-            ObjectMapper mapper) {
+            OutboxRepository outbox) {
         this.stockRepo = stockRepo;
         this.reservationRepo = reservationRepo;
         this.outbox = outbox;
-        this.mapper = mapper;
     }
 
     @Transactional
-    public void handleOrderCreated(EventEnvelope envelope) {
-        OrderCreatedPayload payload = mapper.convertValue(envelope.payload(), OrderCreatedPayload.class);
+    public void handleOrderCreated(OrderCreatedPayload payload) {
         UUID orderId = payload.orderId();
 
         boolean simulateFailure = "inventory_failure".equals(payload.simulate());
@@ -81,8 +76,7 @@ public class InventoryService {
     }
 
     @Transactional
-    public void handlePaymentUnauthorized(EventEnvelope envelope) {
-        PaymentsUnauthorizedPayload payload = mapper.convertValue(envelope.payload(), PaymentsUnauthorizedPayload.class);
+    public void handlePaymentUnauthorized(PaymentsUnauthorizedPayload payload) {
         UUID orderId = payload.orderId();
 
         releaseReservations(orderId);

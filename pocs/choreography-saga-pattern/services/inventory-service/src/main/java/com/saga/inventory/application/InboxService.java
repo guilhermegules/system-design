@@ -1,17 +1,16 @@
-package com.saga.inventory.service;
+package com.saga.inventory.application;
 
-import com.saga.inventory.domain.InboxEvent;
-import com.saga.inventory.events.EventEnvelope;
-import com.saga.inventory.repository.InboxEventRepository;
+import com.saga.inventory.application.port.InboxRepository;
+import com.saga.inventory.domain.event.EventEnvelope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class InboxService {
 
-    private final InboxEventRepository repo;
+    private final InboxRepository repo;
 
-    public InboxService(InboxEventRepository repo) {
+    public InboxService(InboxRepository repo) {
         this.repo = repo;
     }
 
@@ -24,11 +23,11 @@ public class InboxService {
      */
     @Transactional
     public boolean process(EventEnvelope envelope, Runnable handler) {
-        if (repo.existsById(envelope.eventId())) {
+        if (repo.exists(envelope.eventId())) {
             return false;
         }
         handler.run();
-        repo.save(new InboxEvent(envelope.eventId(), envelope.eventType(), envelope.correlationId()));
+        repo.markProcessed(envelope);
         return true;
     }
 }

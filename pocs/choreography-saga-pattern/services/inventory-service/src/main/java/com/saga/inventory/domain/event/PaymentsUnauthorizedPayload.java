@@ -1,4 +1,4 @@
-package com.saga.inventory.events;
+package com.saga.inventory.domain.event;
 
 import java.util.UUID;
 

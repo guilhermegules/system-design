@@ -1,4 +1,4 @@
-package com.saga.inventory.events;
+package com.saga.inventory.domain.event;
 
 import java.math.BigDecimal;
 import java.util.List;

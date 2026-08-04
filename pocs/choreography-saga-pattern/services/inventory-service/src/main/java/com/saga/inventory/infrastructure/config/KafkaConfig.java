@@ -1,4 +1,4 @@
-package com.saga.inventory.config;
+package com.saga.inventory.infrastructure.config;
 
 import java.util.HashMap;
 import java.util.Map;

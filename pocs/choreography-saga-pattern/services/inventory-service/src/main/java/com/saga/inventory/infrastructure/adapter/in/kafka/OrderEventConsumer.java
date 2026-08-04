@@ -1,12 +1,14 @@
-package com.saga.inventory.listener;
+package com.saga.inventory.infrastructure.adapter.in.kafka;
 
-import tools.jackson.core.JacksonException;
-import tools.jackson.databind.ObjectMapper;
-import com.saga.inventory.events.EventEnvelope;
-import com.saga.inventory.service.InboxService;
-import com.saga.inventory.service.InventoryService;
+import com.saga.inventory.application.InboxService;
+import com.saga.inventory.application.InventoryService;
+import com.saga.inventory.domain.event.EventEnvelope;
+import com.saga.inventory.domain.event.OrderCreatedPayload;
+import com.saga.inventory.domain.event.PaymentsUnauthorizedPayload;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 public class OrderEventConsumer {
@@ -24,13 +26,15 @@ public class OrderEventConsumer {
     @KafkaListener(topics = "order.created", groupId = "inventory-service")
     public void onOrderCreated(String message) {
         EventEnvelope envelope = parse(message);
-        inbox.process(envelope, () -> inventory.handleOrderCreated(envelope));
+        OrderCreatedPayload payload = mapper.convertValue(envelope.payload(), OrderCreatedPayload.class);
+        inbox.process(envelope, () -> inventory.handleOrderCreated(payload));
     }
 
     @KafkaListener(topics = "payments.unauthorized", groupId = "inventory-service")
     public void onPaymentsUnauthorized(String message) {
         EventEnvelope envelope = parse(message);
-        inbox.process(envelope, () -> inventory.handlePaymentUnauthorized(envelope));
+        PaymentsUnauthorizedPayload payload = mapper.convertValue(envelope.payload(), PaymentsUnauthorizedPayload.class);
+        inbox.process(envelope, () -> inventory.handlePaymentUnauthorized(payload));
     }
 
     private EventEnvelope parse(String message) {

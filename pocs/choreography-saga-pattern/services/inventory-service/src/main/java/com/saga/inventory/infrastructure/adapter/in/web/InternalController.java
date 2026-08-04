@@ -1,6 +1,6 @@
-package com.saga.inventory.controller;
+package com.saga.inventory.infrastructure.adapter.in.web;
 
-import com.saga.inventory.service.SeedDataRunner;
+import com.saga.inventory.infrastructure.bootstrap.SeedDataRunner;
 import java.util.Map;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

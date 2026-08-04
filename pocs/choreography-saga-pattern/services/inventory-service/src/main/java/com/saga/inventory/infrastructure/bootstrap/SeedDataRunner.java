@@ -1,7 +1,7 @@
-package com.saga.inventory.service;
+package com.saga.inventory.infrastructure.bootstrap;
 
+import com.saga.inventory.application.port.StockRepository;
 import com.saga.inventory.domain.StockItem;
-import com.saga.inventory.repository.StockItemRepository;
 import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -15,9 +15,9 @@ public class SeedDataRunner implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(SeedDataRunner.class);
 
-    private final StockItemRepository repo;
+    private final StockRepository repo;
 
-    public SeedDataRunner(StockItemRepository repo) {
+    public SeedDataRunner(StockRepository repo) {
         this.repo = repo;
     }
 
