@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface ReservationRepository {
 
-    List<Reservation> findByOrderIdAndStatus(UUID orderId, Reservation.Status status);
+  List<Reservation> findByOrderIdAndStatus(UUID orderId, Reservation.Status status);
 
-    void save(Reservation reservation);
+  void save(Reservation reservation);
 }

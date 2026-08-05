@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/internal")
 public class InternalController {
 
-    private final SeedDataRunner seed;
+  private final SeedDataRunner seed;
 
-    public InternalController(SeedDataRunner seed) {
-        this.seed = seed;
-    }
+  public InternalController(SeedDataRunner seed) {
+    this.seed = seed;
+  }
 
-    @PostMapping("/seed")
-    public Map<String, String> seed() {
-        seed.run();
-        return Map.of("status", "seeded");
-    }
+  @PostMapping("/seed")
+  public Map<String, String> seed() {
+    seed.run();
+    return Map.of("status", "seeded");
+  }
 }

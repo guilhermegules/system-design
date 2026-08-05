@@ -6,11 +6,11 @@ import java.util.Optional;
 
 public interface StockRepository {
 
-    Optional<StockItem> findByProductId(String productId);
+  Optional<StockItem> findByProductId(String productId);
 
-    void save(StockItem item);
+  void save(StockItem item);
 
-    void saveAll(List<StockItem> items);
+  void saveAll(List<StockItem> items);
 
-    long count();
+  long count();
 }

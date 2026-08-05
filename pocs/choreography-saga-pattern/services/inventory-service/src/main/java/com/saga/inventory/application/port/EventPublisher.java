@@ -4,5 +4,5 @@ import com.saga.inventory.domain.event.EventEnvelope;
 
 public interface EventPublisher {
 
-    void publish(EventEnvelope envelope);
+  void publish(EventEnvelope envelope);
 }

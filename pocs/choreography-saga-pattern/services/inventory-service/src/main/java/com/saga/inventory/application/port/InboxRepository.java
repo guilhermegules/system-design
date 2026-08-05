@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public interface InboxRepository {
 
-    boolean exists(UUID eventId);
+  boolean exists(UUID eventId);
 
-    void markProcessed(EventEnvelope envelope);
+  void markProcessed(EventEnvelope envelope);
 }

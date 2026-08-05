@@ -13,64 +13,63 @@ import java.util.UUID;
 @Table(name = "stock_items")
 public class StockItemEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 
-    @Column(name = "product_id", nullable = false, unique = true)
-    private String productId;
+  @Column(name = "product_id", nullable = false, unique = true)
+  private String productId;
 
-    @Column(nullable = false)
-    private String name;
+  @Column(nullable = false)
+  private String name;
 
-    @Column(nullable = false)
-    private int quantity;
+  @Column(nullable = false)
+  private int quantity;
 
-    public StockItemEntity() {
-    }
+  public StockItemEntity() {}
 
-    public static StockItemEntity fromDomain(StockItem item) {
-        StockItemEntity entity = new StockItemEntity();
-        entity.id = item.getId();
-        entity.productId = item.getProductId();
-        entity.name = item.getName();
-        entity.quantity = item.getQuantity();
-        return entity;
-    }
+  public static StockItemEntity fromDomain(StockItem item) {
+    StockItemEntity entity = new StockItemEntity();
+    entity.id = item.getId();
+    entity.productId = item.getProductId();
+    entity.name = item.getName();
+    entity.quantity = item.getQuantity();
+    return entity;
+  }
 
-    public StockItem toDomain() {
-        return new StockItem(id, productId, name, quantity);
-    }
+  public StockItem toDomain() {
+    return new StockItem(id, productId, name, quantity);
+  }
 
-    public UUID getId() {
-        return id;
-    }
+  public UUID getId() {
+    return id;
+  }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
-    public String getProductId() {
-        return productId;
-    }
+  public String getProductId() {
+    return productId;
+  }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
+  public void setProductId(String productId) {
+    this.productId = productId;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public int getQuantity() {
-        return quantity;
-    }
+  public int getQuantity() {
+    return quantity;
+  }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
 }
