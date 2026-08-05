@@ -12,60 +12,59 @@ import java.util.UUID;
 @Table(name = "inbox_events")
 public class InboxEventEntity {
 
-    @Id
-    @Column(name = "event_id")
-    private UUID eventId;
+  @Id
+  @Column(name = "event_id")
+  private UUID eventId;
 
-    @Column(name = "event_type", nullable = false)
-    private String eventType;
+  @Column(name = "event_type", nullable = false)
+  private String eventType;
 
-    @Column(name = "correlation_id", nullable = false)
-    private UUID correlationId;
+  @Column(name = "correlation_id", nullable = false)
+  private UUID correlationId;
 
-    @Column(name = "processed_at", nullable = false)
-    private Instant processedAt;
+  @Column(name = "processed_at", nullable = false)
+  private Instant processedAt;
 
-    public InboxEventEntity() {
-    }
+  public InboxEventEntity() {}
 
-    public static InboxEventEntity fromDomain(InboxEvent event) {
-        InboxEventEntity entity = new InboxEventEntity();
-        entity.eventId = event.getEventId();
-        entity.eventType = event.getEventType();
-        entity.correlationId = event.getCorrelationId();
-        entity.processedAt = event.getProcessedAt();
-        return entity;
-    }
+  public static InboxEventEntity fromDomain(InboxEvent event) {
+    InboxEventEntity entity = new InboxEventEntity();
+    entity.eventId = event.getEventId();
+    entity.eventType = event.getEventType();
+    entity.correlationId = event.getCorrelationId();
+    entity.processedAt = event.getProcessedAt();
+    return entity;
+  }
 
-    public UUID getEventId() {
-        return eventId;
-    }
+  public UUID getEventId() {
+    return eventId;
+  }
 
-    public void setEventId(UUID eventId) {
-        this.eventId = eventId;
-    }
+  public void setEventId(UUID eventId) {
+    this.eventId = eventId;
+  }
 
-    public String getEventType() {
-        return eventType;
-    }
+  public String getEventType() {
+    return eventType;
+  }
 
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
-    }
+  public void setEventType(String eventType) {
+    this.eventType = eventType;
+  }
 
-    public UUID getCorrelationId() {
-        return correlationId;
-    }
+  public UUID getCorrelationId() {
+    return correlationId;
+  }
 
-    public void setCorrelationId(UUID correlationId) {
-        this.correlationId = correlationId;
-    }
+  public void setCorrelationId(UUID correlationId) {
+    this.correlationId = correlationId;
+  }
 
-    public Instant getProcessedAt() {
-        return processedAt;
-    }
+  public Instant getProcessedAt() {
+    return processedAt;
+  }
 
-    public void setProcessedAt(Instant processedAt) {
-        this.processedAt = processedAt;
-    }
+  public void setProcessedAt(Instant processedAt) {
+    this.processedAt = processedAt;
+  }
 }

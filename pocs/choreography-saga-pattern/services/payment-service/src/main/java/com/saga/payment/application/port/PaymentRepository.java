@@ -4,5 +4,5 @@ import com.saga.payment.domain.Payment;
 
 public interface PaymentRepository {
 
-    void save(Payment payment);
+  void save(Payment payment);
 }

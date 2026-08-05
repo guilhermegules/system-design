@@ -15,95 +15,94 @@ import java.util.UUID;
 @Table(name = "payments")
 public class PaymentEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 
-    @Column(name = "order_id", nullable = false)
-    private UUID orderId;
+  @Column(name = "order_id", nullable = false)
+  private UUID orderId;
 
-    @Column(name = "amount", nullable = false, precision = 12, scale = 2)
-    private BigDecimal amount;
+  @Column(name = "amount", nullable = false, precision = 12, scale = 2)
+  private BigDecimal amount;
 
-    @Column(nullable = false)
-    private String currency;
+  @Column(nullable = false)
+  private String currency;
 
-    @Column(nullable = false, length = 20)
-    private String status;
+  @Column(nullable = false, length = 20)
+  private String status;
 
-    @Column(name = "created_at", nullable = false)
-    private Instant createdAt;
+  @Column(name = "created_at", nullable = false)
+  private Instant createdAt;
 
-    public PaymentEntity() {
-    }
+  public PaymentEntity() {}
 
-    public static PaymentEntity fromDomain(Payment payment) {
-        PaymentEntity entity = new PaymentEntity();
-        entity.id = payment.getId();
-        entity.orderId = payment.getOrderId();
-        entity.amount = payment.getAmount();
-        entity.currency = payment.getCurrency();
-        entity.status = payment.getStatus();
-        entity.createdAt = payment.getCreatedAt();
-        return entity;
-    }
+  public static PaymentEntity fromDomain(Payment payment) {
+    PaymentEntity entity = new PaymentEntity();
+    entity.id = payment.getId();
+    entity.orderId = payment.getOrderId();
+    entity.amount = payment.getAmount();
+    entity.currency = payment.getCurrency();
+    entity.status = payment.getStatus();
+    entity.createdAt = payment.getCreatedAt();
+    return entity;
+  }
 
-    public Payment toDomain() {
-        Payment payment = new Payment();
-        payment.setId(id);
-        payment.setOrderId(orderId);
-        payment.setAmount(amount);
-        payment.setCurrency(currency);
-        payment.setStatus(status);
-        payment.setCreatedAt(createdAt);
-        return payment;
-    }
+  public Payment toDomain() {
+    Payment payment = new Payment();
+    payment.setId(id);
+    payment.setOrderId(orderId);
+    payment.setAmount(amount);
+    payment.setCurrency(currency);
+    payment.setStatus(status);
+    payment.setCreatedAt(createdAt);
+    return payment;
+  }
 
-    public UUID getId() {
-        return id;
-    }
+  public UUID getId() {
+    return id;
+  }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
-    public UUID getOrderId() {
-        return orderId;
-    }
+  public UUID getOrderId() {
+    return orderId;
+  }
 
-    public void setOrderId(UUID orderId) {
-        this.orderId = orderId;
-    }
+  public void setOrderId(UUID orderId) {
+    this.orderId = orderId;
+  }
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
+  public BigDecimal getAmount() {
+    return amount;
+  }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+  public void setAmount(BigDecimal amount) {
+    this.amount = amount;
+  }
 
-    public String getCurrency() {
-        return currency;
-    }
+  public String getCurrency() {
+    return currency;
+  }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
+  public void setCurrency(String currency) {
+    this.currency = currency;
+  }
 
-    public String getStatus() {
-        return status;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
+  public Instant getCreatedAt() {
+    return createdAt;
+  }
 
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
+  public void setCreatedAt(Instant createdAt) {
+    this.createdAt = createdAt;
+  }
 }

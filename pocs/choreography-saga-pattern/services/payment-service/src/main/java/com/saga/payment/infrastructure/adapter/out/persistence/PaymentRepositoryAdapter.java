@@ -7,16 +7,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class PaymentRepositoryAdapter implements PaymentRepository {
 
-    private final JpaPaymentRepository jpa;
+  private final JpaPaymentRepository jpa;
 
-    public PaymentRepositoryAdapter(JpaPaymentRepository jpa) {
-        this.jpa = jpa;
-    }
+  public PaymentRepositoryAdapter(JpaPaymentRepository jpa) {
+    this.jpa = jpa;
+  }
 
-    @Override
-    public void save(Payment payment) {
-        PaymentEntity saved = jpa.save(PaymentEntity.fromDomain(payment));
-        payment.setId(saved.getId());
-        payment.setCreatedAt(saved.getCreatedAt());
-    }
+  @Override
+  public void save(Payment payment) {
+    PaymentEntity saved = jpa.save(PaymentEntity.fromDomain(payment));
+    payment.setId(saved.getId());
+    payment.setCreatedAt(saved.getCreatedAt());
+  }
 }

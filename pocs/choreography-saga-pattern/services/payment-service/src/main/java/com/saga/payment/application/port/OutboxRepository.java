@@ -8,9 +8,9 @@ import java.util.UUID;
 
 public interface OutboxRepository {
 
-    void enqueue(String eventType, UUID correlationId, Map<String, Object> payload);
+  void enqueue(String eventType, UUID correlationId, Map<String, Object> payload);
 
-    List<OutboxEvent> fetchPending(int limit);
+  List<OutboxEvent> fetchPending(int limit);
 
-    void markSent(UUID id, Instant sentAt);
+  void markSent(UUID id, Instant sentAt);
 }

@@ -4,9 +4,4 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 public record InventoryReservedPayload(
-        UUID orderId,
-        UUID reservationId,
-        BigDecimal totalAmount,
-        String currency,
-        String simulate) {
-}
+    UUID orderId, UUID reservationId, BigDecimal totalAmount, String currency, String simulate) {}
