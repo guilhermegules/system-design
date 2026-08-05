@@ -1,69 +1,52 @@
 package com.saga.inventory.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import java.util.UUID;
 
-@Entity
-@Table(name = "stock_items")
 public class StockItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+  private UUID id;
+  private String productId;
+  private String name;
+  private int quantity;
 
-    @Column(name = "product_id", nullable = false, unique = true)
-    private String productId;
+  public StockItem() {}
 
-    @Column(nullable = false)
-    private String name;
+  public StockItem(UUID id, String productId, String name, int quantity) {
+    this.id = id;
+    this.productId = productId;
+    this.name = name;
+    this.quantity = quantity;
+  }
 
-    @Column(nullable = false)
-    private int quantity;
+  public UUID getId() {
+    return id;
+  }
 
-    public StockItem() {
-    }
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
-    public StockItem(UUID id, String productId, String name, int quantity) {
-        this.id = id;
-        this.productId = productId;
-        this.name = name;
-        this.quantity = quantity;
-    }
+  public String getProductId() {
+    return productId;
+  }
 
-    public UUID getId() {
-        return id;
-    }
+  public void setProductId(String productId) {
+    this.productId = productId;
+  }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getProductId() {
-        return productId;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
+  public int getQuantity() {
+    return quantity;
+  }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
 }

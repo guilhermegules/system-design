@@ -1,68 +1,53 @@
 package com.saga.inventory.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import java.time.Instant;
 import java.util.UUID;
 
-@Entity
-@Table(name = "inbox_events")
 public class InboxEvent {
 
-    @Id
-    @Column(name = "event_id")
-    private UUID eventId;
+  private UUID eventId;
+  private String eventType;
+  private UUID correlationId;
+  private Instant processedAt;
 
-    @Column(name = "event_type", nullable = false)
-    private String eventType;
+  public InboxEvent() {}
 
-    @Column(name = "correlation_id", nullable = false)
-    private UUID correlationId;
+  public InboxEvent(UUID eventId, String eventType, UUID correlationId) {
+    this.eventId = eventId;
+    this.eventType = eventType;
+    this.correlationId = correlationId;
+    this.processedAt = Instant.now();
+  }
 
-    @Column(name = "processed_at", nullable = false)
-    private Instant processedAt;
+  public UUID getEventId() {
+    return eventId;
+  }
 
-    public InboxEvent() {
-    }
+  public void setEventId(UUID eventId) {
+    this.eventId = eventId;
+  }
 
-    public InboxEvent(UUID eventId, String eventType, UUID correlationId) {
-        this.eventId = eventId;
-        this.eventType = eventType;
-        this.correlationId = correlationId;
-        this.processedAt = Instant.now();
-    }
+  public String getEventType() {
+    return eventType;
+  }
 
-    public UUID getEventId() {
-        return eventId;
-    }
+  public void setEventType(String eventType) {
+    this.eventType = eventType;
+  }
 
-    public void setEventId(UUID eventId) {
-        this.eventId = eventId;
-    }
+  public UUID getCorrelationId() {
+    return correlationId;
+  }
 
-    public String getEventType() {
-        return eventType;
-    }
+  public void setCorrelationId(UUID correlationId) {
+    this.correlationId = correlationId;
+  }
 
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
-    }
+  public Instant getProcessedAt() {
+    return processedAt;
+  }
 
-    public UUID getCorrelationId() {
-        return correlationId;
-    }
-
-    public void setCorrelationId(UUID correlationId) {
-        this.correlationId = correlationId;
-    }
-
-    public Instant getProcessedAt() {
-        return processedAt;
-    }
-
-    public void setProcessedAt(Instant processedAt) {
-        this.processedAt = processedAt;
-    }
+  public void setProcessedAt(Instant processedAt) {
+    this.processedAt = processedAt;
+  }
 }
