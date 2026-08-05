@@ -1,104 +1,80 @@
 package com.saga.payment.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import java.time.Instant;
 import java.util.UUID;
 
-@Entity
-@Table(name = "outbox")
 public class OutboxEvent {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+  private UUID id;
+  private UUID eventId;
+  private String eventType;
+  private UUID correlationId;
+  private String payload;
+  private String status = "PENDING";
+  private Instant createdAt;
+  private Instant sentAt;
 
-    @Column(name = "event_id", nullable = false)
-    private UUID eventId;
+  public UUID getId() {
+    return id;
+  }
 
-    @Column(name = "event_type", nullable = false)
-    private String eventType;
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
-    @Column(name = "correlation_id", nullable = false)
-    private UUID correlationId;
+  public UUID getEventId() {
+    return eventId;
+  }
 
-    @Column(columnDefinition = "text", nullable = false)
-    private String payload;
+  public void setEventId(UUID eventId) {
+    this.eventId = eventId;
+  }
 
-    @Column(nullable = false)
-    private String status = "PENDING";
+  public String getEventType() {
+    return eventType;
+  }
 
-    @Column(name = "created_at", nullable = false)
-    private Instant createdAt;
+  public void setEventType(String eventType) {
+    this.eventType = eventType;
+  }
 
-    @Column(name = "sent_at")
-    private Instant sentAt;
+  public UUID getCorrelationId() {
+    return correlationId;
+  }
 
-    public UUID getId() {
-        return id;
-    }
+  public void setCorrelationId(UUID correlationId) {
+    this.correlationId = correlationId;
+  }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+  public String getPayload() {
+    return payload;
+  }
 
-    public UUID getEventId() {
-        return eventId;
-    }
+  public void setPayload(String payload) {
+    this.payload = payload;
+  }
 
-    public void setEventId(UUID eventId) {
-        this.eventId = eventId;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public String getEventType() {
-        return eventType;
-    }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
-    }
+  public Instant getCreatedAt() {
+    return createdAt;
+  }
 
-    public UUID getCorrelationId() {
-        return correlationId;
-    }
+  public void setCreatedAt(Instant createdAt) {
+    this.createdAt = createdAt;
+  }
 
-    public void setCorrelationId(UUID correlationId) {
-        this.correlationId = correlationId;
-    }
+  public Instant getSentAt() {
+    return sentAt;
+  }
 
-    public String getPayload() {
-        return payload;
-    }
-
-    public void setPayload(String payload) {
-        this.payload = payload;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Instant getSentAt() {
-        return sentAt;
-    }
-
-    public void setSentAt(Instant sentAt) {
-        this.sentAt = sentAt;
-    }
+  public void setSentAt(Instant sentAt) {
+    this.sentAt = sentAt;
+  }
 }
