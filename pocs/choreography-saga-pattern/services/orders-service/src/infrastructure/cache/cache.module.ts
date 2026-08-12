@@ -1,9 +1,10 @@
+import { OrderCache } from '@domain/ports/order-cache';
 import { Global, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import Redis from 'ioredis';
+import { REDIS_CLIENT } from './cache.tokens';
 import { RedisService } from './redis.service';
-
-export const REDIS_CLIENT = 'REDIS_CLIENT';
+import { RedisCacheAdapter } from './redis-cache.adapter';
 
 @Global()
 @Module({
@@ -20,7 +21,8 @@ export const REDIS_CLIENT = 'REDIS_CLIENT';
       inject: [ConfigService],
     },
     RedisService,
+    { provide: OrderCache, useClass: RedisCacheAdapter },
   ],
-  exports: [RedisService],
+  exports: [RedisService, OrderCache],
 })
 export class CacheModule {}

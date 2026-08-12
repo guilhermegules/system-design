@@ -1,6 +1,6 @@
 import { Inject, Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import Redis from 'ioredis';
-import { REDIS_CLIENT } from './cache.module';
+import { REDIS_CLIENT } from './cache.tokens';
 
 const DEFAULT_TTL_SECONDS = 60;
 

@@ -25,7 +25,6 @@ public class OutboxRepositoryAdapter implements OutboxRepository {
   @Override
   public void enqueue(String eventType, UUID correlationId, Map<String, Object> payload) {
     OutboxEvent event = new OutboxEvent();
-    event.setId(UUID.randomUUID());
     event.setEventId(UUID.randomUUID());
     event.setEventType(eventType);
     event.setCorrelationId(correlationId);

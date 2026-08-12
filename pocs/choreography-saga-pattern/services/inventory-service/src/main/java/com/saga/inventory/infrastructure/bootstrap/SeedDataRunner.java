@@ -3,7 +3,6 @@ package com.saga.inventory.infrastructure.bootstrap;
 import com.saga.inventory.application.port.StockRepository;
 import com.saga.inventory.domain.StockItem;
 import java.util.List;
-import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -29,11 +28,11 @@ public class SeedDataRunner implements CommandLineRunner {
     }
     List<StockItem> seeds =
         List.of(
-            new StockItem(UUID.randomUUID(), "sku-1", "Wireless Mouse", 100),
-            new StockItem(UUID.randomUUID(), "sku-2", "Mechanical Keyboard", 50),
-            new StockItem(UUID.randomUUID(), "sku-3", "27\" Monitor", 20),
-            new StockItem(UUID.randomUUID(), "sku-4", "USB-C Hub", 80),
-            new StockItem(UUID.randomUUID(), "sku-5", "Laptop Stand", 60));
+            new StockItem("sku-1", "Wireless Mouse", 100),
+            new StockItem("sku-2", "Mechanical Keyboard", 50),
+            new StockItem("sku-3", "27\" Monitor", 20),
+            new StockItem("sku-4", "USB-C Hub", 80),
+            new StockItem("sku-5", "Laptop Stand", 60));
     repo.saveAll(seeds);
     log.info("seeded {} stock items", seeds.size());
   }

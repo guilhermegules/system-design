@@ -18,7 +18,7 @@ def test_payment_failure_cancels_order_and_releases_stock(
     create_order, wait_for_status, db_inventory, stock_quantity, wait_until
 ):
     product_id = "sku-1"
-    before = stock_quantity(db_inventory, product_id)
+    before = stock_quantity(product_id)
     assert before is not None
 
     order = create_order(
@@ -40,6 +40,6 @@ def test_payment_failure_cancels_order_and_releases_stock(
     assert all(row[0] == "RELEASED" for row in rows), rows
 
     wait_until(
-        lambda: stock_quantity(db_inventory, product_id) == before,
+        lambda: stock_quantity(product_id) == before,
         label="stock released back to baseline",
     )

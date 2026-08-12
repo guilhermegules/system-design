@@ -11,6 +11,12 @@ public class StockItem {
 
   public StockItem() {}
 
+  public StockItem(String productId, String name, int quantity) {
+    this.productId = productId;
+    this.name = name;
+    this.quantity = quantity;
+  }
+
   public StockItem(UUID id, String productId, String name, int quantity) {
     this.id = id;
     this.productId = productId;

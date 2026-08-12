@@ -23,7 +23,7 @@ services:
     ports:
       - "29092:29092"
     healthcheck:
-      test: ["CMD", "/opt/kafka/bin/kafka-topics.sh", "--bootstrap-server", "localhost:9092", "--list"]
+      test: ["CMD", "/opt/kafka/bin/kafka-topics.sh", "--bootstrap-server", "kafka:9092", "--list"]
       interval: 10s
       timeout: 10s
       retries: 15
@@ -106,7 +106,7 @@ services:
       OTEL_SERVICE_NAME: orders-service
       OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: http://otel-collector:4318/v1/traces
     ports:
-      - "3000:3000"
+      - "8080:3000"
     depends_on:
       kafka:
         condition: service_healthy
@@ -115,7 +115,7 @@ services:
       redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "wget -q -O - http://localhost:3000/health || exit 1"]
+      test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1:3000/health || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -183,15 +183,13 @@ services:
       - jaeger
 
   jaeger:
-    image: jaegertracing/all-in-one:1.66
+    image: jaegertracing/all-in-one:1.66.0
     container_name: jaeger
     environment:
       COLLECTOR_OTLP_ENABLED: "true"
       COLLECTOR_OTLP_HTTP_ENABLED: "true"
     ports:
       - "16686:16686"
-      - "4317:4317"
-      - "4318:4318"
 
   prometheus:
     image: prom/prometheus:v3.1.0
