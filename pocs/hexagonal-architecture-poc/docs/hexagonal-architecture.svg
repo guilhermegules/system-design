@@ -1,0 +1,72 @@
+<svg width="900" height="720" xmlns="http://www.w3.org/2000/svg" font-family="monospace" font-size="13">
+  <!-- Outermost: driving adapters -->
+  <rect x="20" y="20" width="360" height="640" rx="12" fill="#eef2f7" stroke="#9aa7b8" stroke-width="2"/>
+  <text x="200" y="45" text-anchor="middle" font-weight="bold" fill="#334155">Driving Adapters (Inbound)</text>
+
+  <!-- Innermost: domain -->
+  <circle cx="450" cy="360" r="70" fill="#fde68a" stroke="#ca8a04" stroke-width="2"/>
+  <text x="450" y="352" text-anchor="middle" font-weight="bold" fill="#92400e">Domain</text>
+  <text x="450" y="372" text-anchor="middle" fill="#92400e">entities</text>
+
+  <!-- Application (core) -->
+  <circle cx="450" cy="360" r="150" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/>
+  <rect x="360" y="330" width="180" height="60" rx="8" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <text x="450" y="355" text-anchor="middle" font-weight="bold" fill="#1e293b">Application /</text>
+  <text x="450" y="375" text-anchor="middle" font-weight="bold" fill="#1e293b">Use Cases</text>
+
+  <!-- Inner square: Ports -->
+  <rect x="285" y="195" width="330" height="330" rx="14" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="450" y="180" text-anchor="middle" fill="#0369a1">Ports (Interfaces)</text>
+
+  <!-- Driving port -->
+  <rect x="300" y="290" width="180" height="42" rx="6" fill="#bae6fd" stroke="#0284c7" stroke-width="1"/>
+  <text x="390" y="307" text-anchor="middle" fill="#075985">Inbound Port</text>
+  <text x="390" y="323" text-anchor="middle" font-size="11" fill="#075985">CreateProductPort</text>
+
+  <!-- Driven port -->
+  <rect x="520" y="290" width="180" height="42" rx="6" fill="#bae6fd" stroke="#0284c7" stroke-width="1"/>
+  <text x="610" y="307" text-anchor="middle" fill="#075985">Outbound Port</text>
+  <text x="610" y="323" text-anchor="middle" font-size="11" fill="#075985">ProductRepositoryPort</text>
+
+  <!-- Adapter implementations indicators -->
+  <!-- HTTP adapter -->
+  <rect x="40" y="90" width="320" height="46" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+  <text x="200" y="110" text-anchor="middle" fill="#1e40af">Express</text>
+  <text x="200" y="127" text-anchor="middle" font-size="11" fill="#1e40af">routes / controller</text>
+  <line x1="360" y1="113" x2="470" y2="322" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- CLI adapter placeholder -->
+  <rect x="40" y="180" width="320" height="46" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1"/>
+  <text x="200" y="200" text-anchor="middle" fill="#6b21a8">CLI</text>
+  <text x="200" y="217" text-anchor="middle" font-size="11" fill="#6b21a8">(another driving adapter)</text>
+
+  <!-- Outermost: driven adapters -->
+  <rect x="520" y="20" width="360" height="640" rx="12" fill="#eef2f7" stroke="#9aa7b8" stroke-width="2"/>
+  <text x="700" y="45" text-anchor="middle" font-weight="bold" fill="#334155">Driven Adapters (Outbound)</text>
+
+  <!-- SQLite adapter -->
+  <rect x="540" y="90" width="320" height="46" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+  <text x="700" y="110" text-anchor="middle" fill="#166534">SQLite</text>
+  <text x="700" y="127" text-anchor="middle" font-size="11" fill="#166534">ProductRepository (adapter)</text>
+  <line x1="700" y1="136" x2="618" y2="310" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Mail adapter placeholder -->
+  <rect x="540" y="180" width="320" height="46" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="700" y="200" text-anchor="middle" fill="#92400e">Mail / External API</text>
+  <text x="700" y="217" text-anchor="middle" font-size="11" fill="#92400e">(another driven adapter)</text>
+
+  <!-- Database representation -->
+  <ellipse cx="700" cy="520" rx="90" ry="26" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+  <ellipse cx="700" cy="512" rx="90" ry="26" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <rect x="610" y="512" width="180" height="34" fill="#e2e8f0" stroke="none"/>
+  <text x="700" y="537" text-anchor="middle" fill="#0f172a">Database</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <!-- Dependency direction -->
+  <text x="450" y="660" text-anchor="middle" fill="#475569">Dependencies always point inward: adapters -> ports -> core</text>
+</svg>
