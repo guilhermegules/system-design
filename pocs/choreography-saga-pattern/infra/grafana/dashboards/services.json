@@ -1,0 +1,63 @@
+{
+  "uid": "services-overview",
+  "title": "Services Overview",
+  "tags": ["saga", "services"],
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "10s",
+  "time": { "from": "now-15m", "to": "now" },
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Service Up",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "up{job=~\"orders-service|inventory-service|payment-service\"}",
+          "legendFormat": "{{job}}"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Orders Created",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(rate(orders_created_total{job=\"orders-service\"}[1m]))",
+          "legendFormat": "orders created/s"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Orders Completed",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(rate(orders_completed_total{job=\"orders-service\"}[1m]))",
+          "legendFormat": "orders completed/s"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Orders Cancelled",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(rate(orders_cancelled_total{job=\"orders-service\"}[1m]))",
+          "legendFormat": "orders cancelled/s"
+        }
+      ]
+    }
+  ]
+}
