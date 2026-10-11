@@ -1,0 +1,35 @@
+# Node / NestJS
+node_modules/
+dist/
+coverage/
+*.log
+.npmrc
+
+# Java / Gradle
+.gradle/
+build/
+bin/
+.classpath
+.project
+.settings/
+!gradle/wrapper/gradle-wrapper.jar
+!**/gradlew
+!**/gradlew.bat
+!**/gradle/wrapper/gradle-wrapper.properties
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# Env / secrets
+.env
+.env.*
+!.env.example
