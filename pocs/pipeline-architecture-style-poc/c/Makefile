@@ -1,6 +1,3 @@
-# Author: Guilherme Gules Moreira
-# Pipeline Architecture Style POC (C / POSIX Unix Pipes)
-
 CC = gcc
 CFLAGS = -Wall -Wextra -O2
 TARGET = unix_pipeline

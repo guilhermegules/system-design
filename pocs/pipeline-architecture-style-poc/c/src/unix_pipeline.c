@@ -4,8 +4,8 @@
 #include <sys/wait.h>
 
 int main(void) {
-    int pipe1[2]; // Pipe between Producer and Tester
-    int pipe2[2]; // Pipe between Tester and Transformer/Consumer
+    int pipe1[2];
+    int pipe2[2];
 
     if (pipe(pipe1) == -1 || pipe(pipe2) == -1) {
         perror("Failed to create POSIX pipe");
@@ -16,7 +16,6 @@ int main(void) {
     printf("Starting Unix C Pipeline (pipe -> fork -> dup2)\n");
     printf("=================================================================\n\n");
 
-    // 1. PRODUCER FILTER PROCESS
     pid_t pid1 = fork();
     if (pid1 == -1) {
         perror("Fork producer failed");
@@ -24,15 +23,13 @@ int main(void) {
     }
 
     if (pid1 == 0) {
-        // Child 1: Producer
-        close(pipe1[0]); // Close unused read end of pipe 1
-        dup2(pipe1[1], STDOUT_FILENO); // stdout -> pipe1 write end
+        close(pipe1[0]);
+        dup2(pipe1[1], STDOUT_FILENO);
         close(pipe1[1]);
 
         close(pipe2[0]);
         close(pipe2[1]);
 
-        // Emits raw transaction values (some positive, some negative/invalid)
         printf("1200\n");
         printf("-50\n");
         printf("850\n");
@@ -42,7 +39,6 @@ int main(void) {
         exit(0);
     }
 
-    // 2. TESTER FILTER PROCESS
     pid_t pid2 = fork();
     if (pid2 == -1) {
         perror("Fork tester failed");
@@ -50,18 +46,16 @@ int main(void) {
     }
 
     if (pid2 == 0) {
-        // Child 2: Tester (Filters criteria: amount > 0)
-        close(pipe1[1]); // Close write end of pipe 1
-        dup2(pipe1[0], STDIN_FILENO); // stdin <- pipe1 read end
+        close(pipe1[1]);
+        dup2(pipe1[0], STDIN_FILENO);
         close(pipe1[0]);
 
-        close(pipe2[0]); // Close read end of pipe 2
-        dup2(pipe2[1], STDOUT_FILENO); // stdout -> pipe2 write end
+        close(pipe2[0]);
+        dup2(pipe2[1], STDOUT_FILENO);
         close(pipe2[1]);
 
         int amount;
         while (scanf("%d", &amount) == 1) {
-            // Tester evaluation: Only forward strictly positive amounts
             if (amount > 0) {
                 printf("%d\n", amount);
                 fflush(stdout);
@@ -70,11 +64,9 @@ int main(void) {
         exit(0);
     }
 
-    // Parent closes pipe1 ends so EOF is propagated properly
     close(pipe1[0]);
     close(pipe1[1]);
 
-    // 3. TRANSFORMER & CONSUMER FILTER PROCESS
     pid_t pid3 = fork();
     if (pid3 == -1) {
         perror("Fork transformer failed");
@@ -82,9 +74,8 @@ int main(void) {
     }
 
     if (pid3 == 0) {
-        // Child 3: Transformer & Consumer Sink
-        close(pipe2[1]); // Close write end of pipe 2
-        dup2(pipe2[0], STDIN_FILENO); // stdin <- pipe2 read end
+        close(pipe2[1]);
+        dup2(pipe2[0], STDIN_FILENO);
         close(pipe2[0]);
 
         int amount;
@@ -112,11 +103,9 @@ int main(void) {
         exit(0);
     }
 
-    // Parent closes pipe2 ends
     close(pipe2[0]);
     close(pipe2[1]);
 
-    // Wait for all three filter child processes to finish
     waitpid(pid1, NULL, 0);
     waitpid(pid2, NULL, 0);
     waitpid(pid3, NULL, 0);

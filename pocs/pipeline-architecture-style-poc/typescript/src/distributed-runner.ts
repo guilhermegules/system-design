@@ -31,11 +31,9 @@ export async function runDistributedPipeline() {
   const mapReducer = new RiskAnalyticsMapReduceFilter(analyticsDb);
   const consumer = new ExecutiveReportConsumerFilter(reportDb);
 
-  // Distributed Network Pipes (Simulated Kafka / RabbitMQ topics with latency)
   const rawTopicPipe = new DistributedMessagePipe<any>('transactions.raw.v1', 10);
   const validatedTopicPipe = new DistributedMessagePipe<any>('transactions.validated.v1', 10);
 
-  // Service A (Producer Service)
   const serviceProducer = (async () => {
     const stream = await producer.execute();
     for await (const record of stream) {
@@ -45,7 +43,6 @@ export async function runDistributedPipeline() {
     rawTopicPipe.close();
   })();
 
-  // Service B (Tester / Compliance Service)
   const serviceTester = (async () => {
     while (true) {
       const record = await rawTopicPipe.receive();
@@ -59,7 +56,6 @@ export async function runDistributedPipeline() {
     validatedTopicPipe.close();
   })();
 
-  // Service C (Transformation Service)
   const enrichedBatch: EnrichedTransaction[] = [];
   const serviceTransformer = (async () => {
     while (true) {
@@ -73,11 +69,9 @@ export async function runDistributedPipeline() {
 
   await Promise.all([serviceProducer, serviceTester, serviceTransformer]);
 
-  // Service D (MapReduce Analytics Worker)
   console.log(`\n  [Service: MapReduce Cluster] Distributed shuffle & aggregation...`);
   const aggregates = await mapReducer.execute(enrichedBatch);
 
-  // Service E (Consumer / Reporting Service)
   await consumer.execute({ transactions: enrichedBatch, aggregates });
 
   console.log('>>> [SUCCESS] Distributed Pipeline simulation completed.\n');

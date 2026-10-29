@@ -15,7 +15,6 @@ public class App {
 
         FinancialPipelineService service = new FinancialPipelineService();
 
-        // Print reflective analysis of annotations
         System.out.println("\n--- Discovered Pipeline Filters via Reflection ---");
         for (Method method : service.getClass().getDeclaredMethods()) {
             if (method.isAnnotationPresent(Filter.class)) {
@@ -26,11 +25,9 @@ public class App {
         }
         System.out.println("--------------------------------------------------\n");
 
-        // 1. PRODUCER: Pipe 1
         System.out.println("[Producer] Fetching raw transactions...");
         List<Transaction> rawTransactions = service.produceTransactions();
 
-        // 2. TESTER: Pipe 1 -> Tester -> Pipe 2
         System.out.println("[Tester] Validating compliance criteria...");
         List<Transaction> validTransactions = rawTransactions.stream()
             .filter(tx -> {
@@ -43,17 +40,14 @@ public class App {
             })
             .toList();
 
-        // 3. TRANSFORMER: Pipe 2 -> Transformer -> Pipe 3
         System.out.println("[Transformer] Normalizing currency & computing tax...");
         List<EnrichedTransaction> enrichedList = validTransactions.stream()
             .map(service::transformTransaction)
             .toList();
 
-        // 4. MAPREDUCE TRANSFORMER: Pipe 3 -> MapReduce -> Pipe 4
         System.out.println("[MapReduce] Grouping and aggregating volumes...");
         Map<String, Double> currencyAggregation = service.aggregateByCurrency(enrichedList);
 
-        // 5. CONSUMER: Pipe 4 -> Consumer (Terminal Sink)
         System.out.println("[Consumer] Writing executive audit report...");
         service.consumeReport(enrichedList, currencyAggregation);
 

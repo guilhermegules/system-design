@@ -1,22 +1,14 @@
 defmodule PipelineDemo do
-  @doc """
-  1. PRODUCER FILTER (Outbound only)
-  Generates raw transaction data maps.
-  """
   def produce_raw_transactions do
     [
       %{id: "TX-E01", user_id: "usr-1", amount: 1500.0, currency: :USD, channel: :web},
-      %{id: "TX-E02", user_id: "usr-2", amount: -45.0, currency: :USD, channel: :pos},    # Invalid
+      %{id: "TX-E02", user_id: "usr-2", amount: -45.0, currency: :USD, channel: :pos},
       %{id: "TX-E03", user_id: "usr-3", amount: 850.0, currency: :EUR, channel: :mobile},
-      %{id: "TX-E04", user_id: "usr-4", amount: 450000.0, currency: :GBP, channel: :wire}, # Exceeds limit
+      %{id: "TX-E04", user_id: "usr-4", amount: 450000.0, currency: :GBP, channel: :wire},
       %{id: "TX-E05", user_id: "usr-5", amount: 320.0, currency: :GBP, channel: :web}
     ]
   end
 
-  @doc """
-  2. TESTER FILTER (Inbound & Outbound, Conditional)
-  Evaluates compliance rules: positive amount, within threshold.
-  """
   def test_compliance(transactions) do
     Enum.filter(transactions, fn tx ->
       is_valid = tx.amount > 0.0 and tx.amount <= 100_000.0
@@ -27,10 +19,6 @@ defmodule PipelineDemo do
     end)
   end
 
-  @doc """
-  3. TRANSFORMER FILTER (Inbound & Outbound)
-  Normalizes currency to USD and computes withholding tax.
-  """
   def transform_currency_and_tax(transactions) do
     Enum.map(transactions, fn tx ->
       rate =
@@ -56,10 +44,6 @@ defmodule PipelineDemo do
     end)
   end
 
-  @doc """
-  4. MAPREDUCE ANALYTICS TRANSFORMER FILTER
-  Scatter: groups by currency -> Map & Reduce totals.
-  """
   def map_reduce_analytics(transactions) do
     transactions
     |> Enum.group_by(& &1.currency)
@@ -72,10 +56,6 @@ defmodule PipelineDemo do
     |> Map.new()
   end
 
-  @doc """
-  5. CONSUMER FILTER (Inbound only)
-  Terminal sink printing the executive audit report.
-  """
   def consume_report({transactions, aggregates}) do
     total_gross = Enum.reduce(transactions, 0.0, &(&1.amount_usd + &2))
     total_tax = Enum.reduce(transactions, 0.0, &(&1.tax_usd + &2))
@@ -96,14 +76,9 @@ defmodule PipelineDemo do
     IO.puts("==================================================================\n")
   end
 
-  @doc """
-  Pipeline Orchestration using Elixir's native |> Pipe Operator.
-  """
   def run do
     IO.puts("Starting Elixir Pipeline (Pipes & Filters with |>)...")
 
-    # Pure Pipe and Filter flow:
-    # Producer -> Tester -> Transformer -> MapReduce -> Consumer
     transactions =
       produce_raw_transactions()
       |> test_compliance()
