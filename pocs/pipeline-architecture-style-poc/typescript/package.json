@@ -1,0 +1,20 @@
+{
+  "name": "pipeline-architecture-typescript-poc",
+  "version": "1.0.0",
+  "description": "Pipeline Architecture Style (Pipes & Filters) POC in TypeScript",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-strip-types src/index.ts",
+    "start:monolith": "node --experimental-strip-types src/monolithic-runner.ts",
+    "start:distributed": "node --experimental-strip-types src/distributed-runner.ts",
+    "test": "node --experimental-strip-types --test tests/pipeline.test.ts"
+  },
+  "keywords": [
+    "pipeline-architecture",
+    "pipes-and-filters",
+    "software-architecture",
+    "mapreduce"
+  ],
+  "author": "Guilherme Gules Moreira",
+  "license": "MIT"
+}
