@@ -1,0 +1,29 @@
+{
+  "name": "webhook-poc",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Order Flow Webhook Architecture POC - Monorepo with HMAC-SHA256 Signing, Retries, DLQ, and Idempotency",
+  "packageManager": "pnpm@10.6.5",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "node --test packages/webhook-kit/src/signature.test.ts tests/integration/order-webhook-flow.test.ts",
+    "test:unit": "node --test packages/webhook-kit/src/signature.test.ts",
+    "test:integration": "node --test tests/integration/order-webhook-flow.test.ts",
+    "demo": "node scripts/demo.ts",
+    "start:orders": "pnpm --filter @webhook-poc/order-service start",
+    "start:payments": "pnpm --filter @webhook-poc/payment-provider start",
+    "start:shipping": "pnpm --filter @webhook-poc/shipping-provider start",
+    "start:notifications": "pnpm --filter @webhook-poc/notification-service start",
+    "dev": "pnpm --parallel -r start",
+    "clean": "pnpm -r clean"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.8.2"
+  }
+}

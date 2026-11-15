@@ -1,0 +1,16 @@
+{
+  "name": "@webhook-poc/payment-provider",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "scripts": {
+    "start": "node src/main.ts",
+    "build": "echo 'Using native Node TypeScript stripping'",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@webhook-poc/webhook-kit": "workspace:*"
+  }
+}
